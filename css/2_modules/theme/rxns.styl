@@ -1,0 +1,89 @@
+[class*="rxn-ctrl"]
+    background-size: 0
+    transition: color .3s ease-in-out
+    will-change: color, background
+
+    &::before
+        background-image: inherit
+        opacity: 0
+        transition: opacity .3s ease-in-out
+        will-change: opacity
+
+    &:hover
+        transition: color .3s ease-in-out, background .5s ease-in-out
+
+        &::before
+            opacity: .5
+            transition: opacity .3s ease-in-out
+
+    &.is-active
+        &::before
+            opacity: 1
+
+.rxn-ctrl
+    color: co.brand_secondary
+    background-image: linear-gradient(to top, co.brand_secondary, darken(co.brand_secondary, 35%) 100%)
+
+    &:hover
+    &.is-active
+        color: darken(@color, 45%)
+
+
+.rxn-ctrl--alt
+    color: co.neutrals_shade
+    background-image: linear-gradient(to top, co.brand_primary, darken(co.brand_primary, 35%))
+
+    &:hover
+        transition: color .3s ease-in-out
+
+    &.is-active
+        background-image: linear-gradient(to top, co.brand_tertiary, darken(co.brand_tertiary, 50%))
+        color: lighten(co.neutrals_tint, 50%)
+
+        button&
+            color: co.neutrals_shade
+            background-image: linear-gradient(to top, co.brand_primary, darken(co.brand_primary, 35%))
+
+.rxn-ctrl--minor
+    color: co.neutrals_shade
+    background-image: linear-gradient(to top, rgba(co.neutrals_shade, 50%), rgba(darken(co.neutrals_shade, 35%), 50%))
+
+
+
+
+
+[class*="rxn-hilite"]
+    color: co.brand_tertiary
+    transition: color .3s ease-in-out
+    will-change: color
+
+    +add-after()
+        opacity: 0
+        edges: 0
+        transition: opacity .5s ease-in-out
+        will-change: opacity
+
+    &:hover
+        color: co.copy_base
+        transition: color .3s ease-in-out
+
+        &::after
+            opacity: 1
+            transition: opacity .5s ease-in-out
+
+.rxn-hilite
+    &::after
+        background-image: linear-gradient(to top, rgba(co.brand_tertiary, 50%), rgba(darken(co.brand_tertiary, 35%), 50%) 100%), url(res/bkg.afficon2016_cnd.png)
+
+
+.rxn-hilite--sec
+    &::after
+        background-image: linear-gradient(to top, rgba(co.brand_primary, 50%), rgba(darken(co.brand_primary, 35%), 50%) 100%), url(res/bkg.afficon2016_cnd.png)
+
+.rxn-hilite--tert
+    &::after
+        background-image: linear-gradient(to top, rgba(co.copy_base, 25%), rgba(darken(co.copy_base, 35%), 25%) 100%), url(res/bkg.afficon2016_cnd.png)
+
+.rxn-hilite--quat
+    &::after
+        background-image: linear-gradient(to top, rgba(co.brand_secondary, 25%), rgba(darken(co.brand_secondary, 35%), 25%) 100%), url(res/bkg.afficon2016_cnd.png)

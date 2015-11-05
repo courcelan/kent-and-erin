@@ -1,0 +1,8 @@
+typekit: flf0vej
+analytics: UA-35114742-1
+angular:
+    dependencies:
+        - "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"
+    main: app
+supportIE9: site_ie9
+supportIE8: site_ie9

@@ -1,0 +1,50 @@
+.rates-table-group
+    width: 100%
+    border-spacing: 0
+
+
+.rates-table-cell
+    padding: blh(.25)
+    background-size: 100%
+    text-align: center
+
+.rates-table-hed
+    vertical-align: top
+
+    time
+        display: block
+
+
+[class*="rates-table"]
+    table-layout: fixed
+    width: 100%
+    border-spacing: blh(.25)
+
+    header + &
+        margin-top: blh(.5)
+
+
+.rates-table
+    + .rates-table
+        margin: blh(.5) 0 0
+        +add-before()
+            border-top: 2px solid rgba(co.brand_secondary, 25%)
+            edges: blh(-.125) calc(33% + 6px) auto
+            mix-blend-mode: difference
+
+
+.rates-table--expanded
+    .rates-table-hed
+        width: 20%
+
+        &:nth-child-of-type(1)
+            width: 40%
+
+        &:nth-child-of-type(2)
+            width: 40%
+
+        &:nth-child-of-type(3)
+            width: 40%
+
+        &:nth-child-of-type(4)
+            width: 40%

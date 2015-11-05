@@ -1,0 +1,148 @@
+// 1.0 General Helpers
+
+// HELPER FUNCTIONS
+// quote a variable/syntax... general helper function
+quote(var)
+    return s('"%s"', var)
+
+// figure out where in the BEVM syntax tree this is called from.
+callee(from=called-from)
+    called_from = split(" ", from)
+    from = unquote(called_from[0])
+    return from
+
+// get the base block name
+get_selector(sel=selector())
+    selector = "dummy" + sel
+    selector = split("", extname(selector))
+    remove_dummy = shift(selector)
+    selector = unquote(join("", selector))
+    return selector
+
+
+get_selector_tree(base=selector(), joiner="")
+    tree = split(" ", base)
+    sel = ()
+    for branch in tree
+        leaves = split("", branch)
+        remove_dummy = shift( leaves )
+        branch = unquote( join("", leaves) )
+        push(sel, branch)
+    sel = join(joiner, sel)
+    return sel
+
+
+same-sibling()
+    & + &
+        {block}
+
+following()
+    // & + & is this faster or needed?
+    &:nth-of-type(n+2)
+        {block}
+
+partial-selector(named_partial)
+    sel = s('[class*=%s]', named_partial)
+
+    {sel}
+        {block}
+
+
+// ==========================================================================
+// 1.2 Percentage
+pct( numerator, denominator )
+    return unit( (numerator/denominator) * 100, "%")
+
+
+// ==========================================================================
+// 1.4 Base Font Size
+bfs(value=null)
+    if value
+        return floor( base_font_size * value )
+    else
+        return base_font_size
+
+
+
+// ==========================================================================
+// 1.5 Base Line Height
+blh(value=null)
+    if value
+        return floor( base_line_height * value )
+    else
+        return floor( base_line_height )
+
+
+
+// ==========================================================================
+// 1.6 Image replacement (Kellum Method)
+ir()
+    text-indent: 100%
+    white-space: nowrap
+    overflow: hidden
+
+    // older version (Depreciated)
+    // font: 0/0 a
+    // text-shadow: none
+    // color: transparent
+    // background-color: transparent
+    // border: 0
+
+
+// 1.0 General Helpers
+
+// ==========================================================================
+// 1.1 Namespacing
+//
+// Common function to set up a namespace for groups of styles
+//
+
+// ==========================================================================
+// 1.2 Percentage
+//
+// Find a percentage width based on target and reference widths (or values).
+//
+// @numerator - target width
+// @denominator - target width's parents width
+//
+
+
+// ==========================================================================
+// 1.2 REMs
+//
+// Find the rem value based on target and root width (recommend a base of 10px).
+// Setting `vefa.use.rem` to false will return value in px, rather than in REMs.
+// This is useful for targeting IE8, which doesn't understand REMs.
+//
+// Used in CSS overloads to return computed REM values without needing to
+// individually assign.
+//
+// @size_value - size unit in PX only. `auto`, 0, `inherit`, `rem`, `em`, etc
+// are passed on
+//
+// Examples:
+//
+//    font-size: rem(12px) // returns 1.2rem
+//
+
+
+// ==========================================================================
+// 1.4 Base Font Size
+//
+// Base sizing of off the base_font_size set in your project.styl file
+//
+
+// ==========================================================================
+// 1.5 Base Line Height
+//
+// Base sizing of off the base_line_height set in your project.styl file
+//
+
+
+// ==========================================================================
+// 1.6 Image replacement (Depreciated)
+//
+// Replace content with a backgroud image. Newer IR function based on
+// HTML5 Boilerplate
+//
+// Depreciated because not really needed with todays browsers

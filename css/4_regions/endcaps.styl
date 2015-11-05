@@ -1,0 +1,65 @@
+.masthead-home
+    // no need to use flex-basis here, the image has its own "width"
+    display: block
+    relative-max: 279px, 384px, breakpoints.standard, breakpoints.expanded
+    z-index: 3
+
+    +under(breakpoints.condensed)
+        max-width: 400px
+
+.masthead-nav
+    relative-width: 400px, 700px, breakpoints.standard, breakpoints.expanded
+
+
+.masthead,
+.masthead--cnd
+    order: 0
+    flex: 0 0 auto
+    z(masthead)
+
+.masthead
+    +over(breakpoints.condensed)
+        padding: blh(.5)
+
+    +over(breakpoints.enhanced)
+        padding: blh(.5) blh(1) blh(1)
+
+.masthead--cnd
+    padding: blh(.5)
+    margin-top: blh(1.5)
+
+
+
+
+.colophon
+    position: relative
+    flex: 0 0 auto
+    order: 3
+    padding: blh(.25)
+
+    +over(breakpoints.condensed)
+        padding: blh(.5)
+
+    +over(breakpoints.enhanced)
+        padding: blh(.5) blh(1)
+
+    .nav-tertiary
+        calc-grid: 3 4
+
+        +over-condensed()
+            calc-grid: 4 4
+
+
+.colophon-legal
+    min-width: 75px
+    calc-grid: 1 4 blh(.5)
+    text-transform: uppercase
+
+    +over(breakpoints.condensed)
+        position: absolute
+        top: bfs(-.6)
+        right: blh(.5)
+        width: auto
+
+    +over(breakpoints.enhanced)
+        right: blh(1)

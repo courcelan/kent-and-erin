@@ -1,0 +1,260 @@
+sq(arg)
+    height: arg
+    width: arg
+
+
+padding-x(pad_value)
+    padding-left: pad_value
+    padding-right: pad_value
+
+
+padding-y(pad_value)
+    padding-top: pad_value
+    padding-bottom: pad_value
+
+
+margin-x(pad_value)
+    margin-left: pad_value
+    margin-right: pad_value
+
+
+margin-y(pad_value)
+    margin-top: pad_value
+    margin-bottom: pad_value
+
+
+box-size()
+    if 0 == length(arguments)
+        box = border-box
+    else
+        box = s("%s-box", arguments)
+
+    box-sizing: box
+
+
+max-content-width(max_content, lower_bound=null)
+    // computed
+    computed_fence = max_content
+    computed_fence = computed_fence + lower_bound*2 if lower_bound
+
+    +over(computed_fence)
+        padding-left: s("calc( (100vw - %s)/2 )", max_content)
+        padding-right: @padding-left
+
+
+// 8.0 Structures -  Self
+// mixins that alter the structure/layout of an element
+//
+//
+// Vefa's reset() strips all margin and padding from elements. Class-based
+// paddings and margins enable you to micro-organize and layout elements
+// based on consistent derivatives of the base line-height. Practices OOCSS.
+//
+// These can be called in a group and output as classes, or you can use
+// single function to mixin desired derivative.
+//
+// Value derivatives are based off of percentage of base line-height. You can
+// customize values through declaration. Giving a percentage of 100 assigns the
+// base line-height and does not append a suffix to the class
+
+
+// ==========================================================================
+// 8.1 Padding - Line-Height Ratio
+//
+// Add padding to elements. Creates classes based on:
+//    xy - padding-left, padding-right, padding-top, and padding-bottom
+//    x - padding-left and padding-right
+//    y - padding-top and padding-bottom
+//    above - padding-top
+//    below - padding-bottom
+//    before - padding-left
+//    after - padding-right
+//    flush - clears out paddings
+//
+//  Caveat:
+//    It is not recommended to use `before`/`after` and instead give equal
+//    weight to both sides for consistency/simplicity. If engaged in horizontal
+//    grouping, use CSS selector of `:first-child`, `:last-child`, or
+//    `:nth-child` to remove or add padding to initial or last elements. This
+//    will save you time and thought when developing your template logic
+//
+//
+
+// ==========================================================================
+// 8.1.a Include padding in developer defined elements
+//
+// Add padding to developer-defined elements, rather than using OOCSS.
+//
+//  @type (str) - xy, x, y, flush, above, below, before, after
+//  @percentage (int) - percentage of base line-height to apply
+//
+//  Caveat:
+//    Not recommended to use `flush` here. Instead, just declare `padding: 0` in
+//    your class.
+//
+//  Example:
+//    (based off of base line-height of 20px)
+//
+//    .element_class
+//      pad(x, 50)
+//
+//    .element_class
+//      padding-left: 10px
+//      padding-right: 10px
+//
+//    .element_class2
+//      pad(y, 400)
+//
+//    .element_class2
+//      padding-top: 80px
+//      padding-bottom: 80px
+//
+//
+
+// ==========================================================================
+// 8.1.b OOCSS padding definitions
+//
+// Add padding in an OOCSS way.
+//
+//  @type (arr) - list of xy, x, y, flush, above, below, before, after
+//  @arr (arr) - list of percentages of base line-height to apply
+//  @namespace (str)- prefix a namespace for classes
+//
+//  Example:
+//    (based off of base line-height of 20px)
+//
+//    set_padding_classes(x y xy, 10 50 100, u)
+//
+//    .u-pad-x10
+//      padding-left: 2px
+//      padding-right: 2px
+//
+//    .u-pad-x50
+//      padding-left: 10px
+//      padding-right: 10px
+//
+//    .u-pad-x
+//      padding-left: 20px
+//      padding-right: 20px
+//
+//    .u-pad-y10
+//      padding-top: 2px
+//      padding-bottom: 2px
+//
+//    .u-pad-y50
+//      padding-top: 10px
+//      padding-bottom: 10px
+//
+//    .u-pad-y
+//      padding-top: 20px
+//      padding-bottom: 20px
+//
+//    .u-pad-xy10
+//      padding: 2px
+//
+//    .u-pad-xy50
+//      padding: 10px
+//
+//    .u-pad-xy
+//      padding: 2px
+//
+//
+
+// ==========================================================================
+// 8.2 Margin - Line-Height Ratio
+
+// ==========================================================================
+// 8.2.a Include margin in developer defined elements
+//
+// Add margin to developer-defined elements, rather than using OOCSS.
+//
+//  @type (str) - xy, x, y, flush, above, below, before, after, center
+//  @percentage (int) - percentage of base line-height to apply
+//
+//  Caveat:
+//    Not recommended to use `flush` here. Instead, just declare `margin: 0` in
+//    your class. Not recommended to use `center` here. Instead, just declare
+//    `margin: 0 auto` in your class.
+//
+//  Example:
+//    (based off of base line-height of 20px)
+//
+//    .element_class
+//      space(x, 50)
+//
+//    .element_class
+//      margin-left: 10px
+//      margin-right: 10px
+//
+//    .element_class2
+//      space(y, 400)
+//
+//    .element_class2
+//      margin-top: 80px
+//      margin-bottom: 80px
+//
+//
+
+// ==========================================================================
+// 8.2.b OOCSS margin definitions
+//
+// Add margin in an OOCSS way.
+//
+//  @namespace (str)- prefix a namespace for classes
+//  @type (arr) - list of xy, x, y, flush, above, below, before, after, center
+//  @arr (arr) - list of percentages of base line-height to apply
+//
+//  Example:
+//    (based off of base line-height of 20px)
+//
+//    set_margin_classes(u, x y center, 10 50 100)
+//
+//    .u-space-x10
+//      margin-left: 2px
+//      margin-right: 2px
+//
+//    .u-space-x50
+//      margin-left: 10px
+//      margin-right: 10px
+//
+//    .u-space-x
+//      margin-left: 20px
+//      margin-right: 20px
+//
+//    .u-space-y10
+//      margin-top: 2px
+//      margin-bottom: 2px
+//
+//    .u-space-y50
+//      margin-top: 10px
+//      margin-bottom: 10px
+//
+//    .u-space-y
+//      margin-top: 20px
+//      margin-bottom: 20px
+//
+//    .u-space-center
+//      margin-left: auto
+//      margin-right: auto
+//
+//
+
+
+// ==========================================================================
+// 8.3 Square dimensions
+//
+//
+
+
+// ==========================================================================
+// 8.4 Box-size
+//
+// Typically used to change box model to border model, which intrinsically makes
+// more sense when developing responsively. Used in the reset rules to apply
+// this rule to every element.
+//
+// Does not work in IE7 or below. Why does Mozilla still need prefix? Who knows.
+//
+// @arg - other box model. Defaults to `border`
+//
+//

@@ -1,0 +1,118 @@
+.thm-light
+    background-image: linear-gradient(to bottom, wh(100), darken(wh(100), 3%) 50%)
+    box-shadow: 0 1px 3px bl(25)
+
+    @supports(display: block)
+        box-shadow: none
+        filter: drop-shadow(0 1px 2px bl(25))
+
+    .mot-hl--start
+        +add-after()
+            background: linear-gradient(to right, rgba(co.neutrals_base, .25), rgba(co.neutrals_base, 0) 75%)
+            height: 1px
+            edges: auto 0 0
+
+    .mot-hl--end
+        +add-after()
+            background: linear-gradient(to left, rgba(co.neutrals_base, .25), rgba(co.neutrals_base, 0) 75%)
+            height: 1px
+            edges: 0 0 auto
+
+    .mot-follows
+        > * + *
+            border-left: rgba(co.brand_primary, .5)
+
+
+
+.thm-dark
+    color: lighten(co.neutrals_tint, 40%)
+    letter-spacing: .5px
+    background-color: co.neutrals_shade
+
+    .co-ctrl
+        color: co.brand_primary
+
+        &:hover
+            color: lighten(co.neutrals_tint, 50%)
+
+    .rxn-ctrl
+        color: co.brand_primary
+        border: currentColor
+
+
+        &:hover
+        &.is-active
+            color: saturate(@color, 45%)
+            background: rgba(co.brand_primary, 8%)
+
+.thm-texture--dark
+    color: lighten(co.neutrals_tint, 40%)
+    letter-spacing: .5px
+    background-color: co.neutrals_shade
+
+    @supports(background-blend-mode: multiply)
+        background-image: url(res/bkg.afficon2016_cnd.png)
+        background-blend-mode: multiply
+        background-size: cover
+
+    .co-ctrl
+        color: co.brand_primary
+
+        &:hover
+            color: lighten(co.neutrals_tint, 50%)
+
+    .rxn-ctrl
+        color: co.brand_primary
+        border: currentColor
+
+
+        &:hover
+        &.is-active
+            color: saturate(@color, 45%)
+            background: rgba(co.brand_primary, 8%)
+
+
+
+.thm-photo
+    position: relative
+    background: wh(100)
+    border: rgba(co.neutrals_shade, 15%)
+    box-shadow:0 1px 4px bl(30%), 0 0 40px bl(10%) inset
+
+    @supports(display: block)
+        layers(add_to_parent: false)
+
+        &::before
+            edges: 5% 0
+            background: transparent
+            border-radius: 10px / 100px
+            box-shadow: 0 0 10px 3px bl(100%)
+
+        &::after
+            edges: blh()
+            z-index: 4
+            background: linear-gradient(to right, rgba(co.brand_primary, .25), transparent)
+            mix-blend-mode: color-dodge
+
+
+    img
+        display: block
+        z-index: 0
+        object-fit: cover
+        filter: hue-rotate(-20deg) contrast(90%) saturate(85%) brightness(120%) sepia(45%)
+
+    .mot-multiply
+        text-shadow: 0 0 2px bl(75%)
+
+        @supports(mix-blend-mode: multiply)
+            mix-blend-mode: multiply
+            color: co.brand_tertiary
+            text-shadow: none
+
+    .rxn-ctrl--minor
+        color: wh(100)
+
+        @supports(mix-blend-mode: multiply)
+            mix-blend-mode: color-burn
+            color: co.brand_secondary
+            filter: contrast(120%)

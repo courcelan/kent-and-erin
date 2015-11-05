@@ -1,0 +1,121 @@
+.nav-primary
+    position: relative
+
+    +under(breakpoints.condensed)
+        display: none
+        position: absolute
+        z-index: 200
+        edges: blh(1.5) 0 0
+        padding-top: blh(1.5)
+        min-height: 100vh
+        flex-direction: column
+        justify-content: flex-start
+
+        &.is-nav-active
+            display: block
+
+.nav-primary-item
+    +under(breakpoints.condensed)
+        width: 100%
+
+
+.nav-primary-ctrl
+    display: block
+    relative-font-size: 14px, 24px, breakpoints.standard, breakpoints.expanded
+    padding: 0 blh(.25) blh(.2)
+
+    +add-before()
+        edges: 0
+
+    +under(breakpoints.condensed)
+        text-align: center
+        text-transform: uppercase
+        stack: header
+        font-size: blh()
+        padding: blh(.5) blh(.25)
+
+    +over(breakpoints.condensed)
+        &::before
+            top: -15vh
+
+
+.nav-action
+    position: absolute
+    edges: 0 0 auto
+    z(nav)
+    height: blh(1.5)
+    width: 100%
+    background: linear-gradient(to left, wh(100) 25%, wh(0) 75%)
+    padding-x: blh(.25)
+
+    +under(breakpoints.condensed)
+        flex-direction: row-reverse
+        justify-content: flex-start
+
+    +add-after(add_to_parent: false)
+        edges: auto 0 0
+        background: linear-gradient(to left, rgba(co.neutrals_base, .5), rgba(co.neutrals_base, 0) 50%)
+        height: 1px
+
+
+[class*="nav-action-ctrl"]
+    display: block
+    width: auto
+    line-height: blh(1.5)
+    padding-x: blh(.5)
+
+    +add-before()
+        edges: -5vh 0 0
+        width: 100%
+
+    .ico-burger
+        burger-icon(width: 12px, height: 2px, gutter: 2px)
+        margin-left: blh(.25)
+        transform: translateY(-.5px)
+
+    &.is-active
+        .ico-burger
+            burger-to-cross()
+
+
+
+
+.nav-tertiary
+    +over(breakpoints.standard)
+        justify-content: center
+
+
+.nav-tertiary-item
+    calc-grid: 1 2
+
+    +under(400px)
+        font-size: 12px
+        letter-spacing: 1px
+        line-height: 3
+
+    +over(breakpoints.condensed)
+        calc-grid: 1 3
+
+    +over(breakpoints.enhanced)
+        width: auto
+        padding: 0 blh(.5)
+
+
+
+.nav-local-item
+    & + &
+        margin-top: 0
+
+.nav-local-ctrl
+    display: block
+    padding: blh(.5)
+    relative-font-size: 16px, 24px, breakpoints.standard, breakpoints.expanded
+    line-height: 1.2
+    text-transform: uppercase
+
+
+.nav-section-item
+    width: 100%
+
+    +over(breakpoints.condensed)
+        set_matrix(2, blh())

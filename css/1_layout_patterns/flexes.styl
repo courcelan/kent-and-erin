@@ -1,0 +1,18 @@
+[class*="row--"]
+[class*="col--"]
+    display: flex
+    flex-wrap: nowrap
+
+[class*="row--"]
+    > * + *
+        margin-top: 0
+
+[class*="col--"]
+    flex-direction: column
+
+
+[class*="--xRev"]
+    flex-direction: row-reverse
+
+[class*="--yRev"]
+    flex-direction: column-reverse

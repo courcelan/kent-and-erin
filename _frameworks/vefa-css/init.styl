@@ -1,0 +1,191 @@
+// 3.0 Initializations
+
+// ==========================================================================
+// 3.1 HTML-init
+html-init()
+    // font-size: 62.5%
+    height: 100%
+    // no harm no foul
+    text-size-adjust: 100%
+
+
+// ==========================================================================
+// 3.2 Body-init
+body-init(fontSize=bfs(), lineHeight=blh())
+    min-height: 100vh
+    font-size: fontSize
+    line-height: lineHeight
+
+
+// ==========================================================================
+// 3.3 Element reset
+reset(forms=true)
+    *
+        background-repeat: no-repeat
+        margin: 0
+        padding: 0
+        box-size()
+        font-size: 100%
+        list-style: none
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6
+        font-weight: 400
+
+    a,
+    abbr,
+    cite,
+    mark,
+    time,
+    span
+        font-size: inherit
+        font-style: inherit
+        font-weight: inherit
+        font-variant: inherit
+        letter-spacing: inherit
+        line-height: inherit
+        text-align: inherit
+        text-transform: inherit
+        color: inherit
+        vertical-align: top
+
+    a
+        text-decoration: none
+
+    img
+        width: 100%
+        max-width: 100%
+        border: 0
+
+        // might not be required if contained in right "block"
+        &.static
+            width: auto
+            max-width: none
+
+
+    svg
+        display: block
+        // vertical-align: middle
+        fill: currentColor
+
+    address
+        font-style: normal
+
+    .a11y
+        position: absolute !important
+        left: 0
+        width: 0
+        clip: rect(0,0,0,0)
+
+    if forms
+        form
+            :focus
+                outline: 0
+
+            ::-moz-focus-inner
+                padding: 0
+                border: 0
+
+        fieldset
+            border: 0
+
+        input,
+        select,
+        textarea,
+        button
+            position: relative
+            display: inline-block
+            margin: 0
+            width: 100%
+            vertical-align: top
+            font-family: inherit
+            font-size: bfs()
+            line-height: blh()
+            border: 0
+            border-radius: 0
+            cursor: pointer
+            text-decoration: none
+
+        button
+            width: auto
+            vertical-align: middle
+            text-align: center
+            background: none
+            white-space: nowrap
+            -moz-appearance: none
+            -webkit-appearance: none
+            appearance: none
+            user-select: none
+
+        :hover
+        :focus
+        :active
+            text-decoration: none
+            outline: 0
+
+        [disabled]
+        :disabled
+        .is-disabled
+            cursor: default
+
+        [type="checkbox"]
+        [type="radio"]
+            // should probably default this to a flex box style... why border-radius?
+            position: static
+            width: auto
+            padding: 0
+            vertical-align: baseline
+            border: 0
+            border-radius: 0
+
+
+reset_details()
+    details
+        summary::-webkit-details-marker
+            display: none
+
+    summary
+        cursor: pointer
+
+
+
+// 3.0 Initializations
+// These stylus mixins & functions reset browser base HTML. Some devs like
+// normalize.css, but we've had great success with clearing it all out and see
+// no browser issues or slowness this way.
+//
+// In addition, Vefa utilizes opt-in typography, where all elements are set to
+// font-size of 0 and development determines specific element font-sizes. Opt-in
+// typography, coupled with declaring all elements as `inline-block` allows for
+// easy grid construction
+//
+// TODO: With the rise of flexbox, we may remove opt-in typography as its not needed with flexbox
+
+// ==========================================================================
+// 3.1 HTML-init
+//
+// Sets root font-size to 10px for use with REM styling. Sets viewport to
+// 100% height to force scrollbar so content doesn't bounce around
+//
+
+
+// ==========================================================================
+// 3.2 Body-init
+//
+// @fontSize = set base font size, defaults to 0 for opt-in font sizing
+// @lineHeight = set base line height, defaults to base_line_height set in project file
+//
+
+
+// ==========================================================================
+// 3.3 Element reset
+//
+// Reset HTML elements to base empty values to set and opt-in at will.
+// Typical inline elements inherit values from parent element.
+// basic form setup / normalization
+//
+//

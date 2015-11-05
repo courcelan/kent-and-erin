@@ -1,0 +1,149 @@
+// 4.0 Utilities
+// Based off of SUIT-CSS by Nicolas Gallagher [https://github.com/suitcss/suit]
+// Extended for use with Vefa, includes additional functionality
+//
+// These are declared as placeholder values, which can be extended on per-need
+// basis. Stylus functions are declared to call groups of needed elements as
+// desired. Call utils() to output all utilities as classes
+layers(pos=relative, add_to_parent=true)
+    if add_to_parent
+        position: pos
+        z-index: 1
+
+    &::before
+    &::after
+        content: ""
+        display: block
+        position: absolute
+        z-index: -1
+        {block}
+
+add-layers = layers()
+
+add-before(pos=relative, add_to_parent=true)
+    if add_to_parent
+        position: pos
+        z-index: 1
+
+    &::before
+        content: ""
+        display: block
+        position: absolute
+        z-index: -1
+        {block}
+
+add-after(pos=relative, add_to_parent=true)
+    if add_to_parent
+        position: pos
+        z-index: 1
+
+    &::after
+        content: ""
+        display: block
+        position: absolute
+        z-index: -1
+        {block}
+
+
+
+utils(namespace=null, classBased=true)
+    prefix = "." if classBased is true
+    prefix = "$" if classBased is false
+
+    {prefix}{namespace}context
+        display: block
+        overflow: hidden
+
+        > {prefix}{namespace}context
+            display: block !important
+            width: auto
+
+    {prefix}{namespace}pull-left
+        float: left
+
+    {prefix}{namespace}pull-right
+        float: right
+
+    {prefix}{namespace}pull-left,
+    {prefix}{namespace}pull-right
+        + *
+            display: block
+            max-width: none /* Guard against `img {max-width:100%}` (IE8 fix) */
+
+
+// ==========================================================================
+// 4.b.0 IE utilities
+//
+// Call utilities that are aimed at IE versions (those lacking flex-box and modern CSS)
+//
+// @namespace (str) - defines a prefix to the calssname
+// @classBased (boolean) - defines whether to run all as classes or as extensions
+//
+ie-utils(namespace=null, classBased=true)
+    prefix = "." if classBased is true
+    prefix = "$" if classBased is false
+
+    {prefix}{namespace}align-top
+        vertical-align: top
+
+    {prefix}{namespace}align-middle
+        vertical-align: middle
+
+    {prefix}{namespace}align-baseline
+        vertical-align: baseline
+
+    {prefix}{namespace}align-bottom
+        vertical-align: bottom
+
+    {prefix}{namespace}item-fill
+        display: block
+        height: 100%
+        width: 100%
+
+    {prefix}{namespace}balance
+        line-height: 1
+        text-align: justify
+        text-justify: distribute-all-lines
+
+        &:after
+            content: ""
+            position: static
+            display: inline-block
+            width: 100%
+
+
+
+// ==========================================================================
+// 4.1 Dev Tools
+// helps for layout and alignment on vertical and horizontal grid does not
+// add to width and height; sits one pixel outside of actual width and height.
+// Additionally, a background is added based on the content box, enabling
+// visualization of element padding.
+//
+// @color - set color value for outline, defaults to red
+// @bkg - show helpful background, defaults to true
+//
+//
+o(color=red)
+    outline: 1px solid color
+
+b(color=red)
+    o()
+    background-color: rgba(color, 50%)
+    background-clip: content-box
+
+dev_tools(color=red, namespace=null)
+
+    .{namespace}b
+        b(color)
+
+    .{namespace}o
+        o(color)
+
+    .{namespace}lh-test
+        layers()
+
+        &::after
+            border-bottom: color
+            width: 1000%
+            edges: 0px auto auto 0px

@@ -1,0 +1,299 @@
+// 9.0 Structures -  Flex / Grid
+// mixins that construct flex-box / grid classes
+
+
+flex_mods = {
+    static: 0 0 auto,
+    fit: 0 1 auto,
+    balance: 1 1 auto,
+    fill: 1 0 auto
+}
+
+
+set_flex_size(type, size=null)
+    type = join("", type)
+    flex: flex_mods[type] size if size
+    flex: flex_mods[type] unless size
+
+
+// ==========================================================================
+// 9.1 Flex Module Size / Order
+flex-modules(types=static fit balance fill, namespace="mod")
+    for type in types
+        cl = s('[class*="%s-%s"]', unquote(namespace), type)
+        { cl }
+            set_flex_size(type)
+
+
+    .-aStart
+        +shared(true)
+            align-self: flex-start
+
+    .-aEnd
+        +shared(true)
+            align-self: flex-end
+
+    .-aCenter
+        +shared(true)
+            align-self: center
+
+    .-aFull
+        +shared(true)
+            align-self: stretch
+
+
+// ==========================================================================
+// 9.2 Flex Rows
+flex-row(namespace="row")
+    cl = s( '[class*="%s--x"]', unquote(namespace) )
+    {cl}
+        display: flex
+        flex-wrap: nowrap
+
+        > * + *
+            margin-top: 0
+
+
+    // remove flex if needed (usually a conditional/breakpoint override)
+    .-xGrid
+        +shared(true)
+            justify-content: space-between
+
+    .-xSpace
+        +shared(true)
+            justify-content: space-around
+
+    .-xStart
+        +shared(true)
+            justify-content: flex-start
+
+    .-xEnd
+        +shared(true)
+            justify-content: flex-end
+
+    .-xMiddle
+        +shared(true)
+            justify-content: center
+
+    .-xRev
+        +shared(true)
+            flex-direction: row-reverse
+
+    .-yTop
+        // vertical alignment per row
+        +shared(true)
+            align-items: flex-start
+
+    .-yBottom
+        +shared(true)
+            align-items: flex-end
+
+    .-yMiddle
+        +shared(true)
+            align-items: center
+
+
+    // .{namespace}-free
+    //     display: block
+
+
+// ==========================================================================
+// 9.3 Flex Columns
+flex-col(namespace="col")
+
+    {s( '[class*="%s--y"]', unquote(namespace) )}
+        display: flex
+        flex-direction: column
+        //fill up available space (?)
+
+    {s( '[class*="%s--yGrid"]', unquote(namespace) )}
+        justify-content: space-between
+
+    {s( '[class*="%s--yStart"]', unquote(namespace) )}
+        justify-content: flex-start
+
+    {s( '[class*="%s--yEnd"]', unquote(namespace) )}
+        justify-content: flex-end
+
+    {s( '[class*="%s--yMiddle"]', unquote(namespace) )}
+        justify-content: center
+
+    {s( '[class*="%s--yRev"]', unquote(namespace) )}
+        flex-direction: column-reverse
+    //
+    // .-xLeft
+    //     // vertical alignment per row
+    //     +shared(true)
+    //     &[class*="--xLeft"]
+    //         align-items: flex-start
+    //
+    // .-xRight
+    //     +shared(true)
+    //         align-items: flex-end
+    //
+    // .-xCenter
+    //     +shared(true)
+    //         align-items: center
+    //
+
+
+// ==========================================================================
+// 9.4 Gridset (flex)
+calc-grid(columns, totalColumns, gutter=null)
+    gutter = s("-  %s", gutter) if gutter
+    perc = 100% * (columns / totalColumns)
+    column_dimension = s("calc(%s %s)", perc, gutter) if gutter
+    column_dimension = perc unless gutter
+    // column_dimension = s("calc( (100% * (%s / %s)) %s )", columns, totalColumns, gutter)
+
+    if mixin
+        width: column_dimension
+    else
+        column_dimension
+
+
+calc-offset(columns, totalColumns, gutter=null)
+    dimension = calc-grid(columns, totalColumns, gutter)
+
+    if mixin
+        margin-left: dimension
+    else
+        dimension
+
+
+set_auto()
+    if mixin
+        width: auto
+    else
+        auto
+
+
+grid(modules=null, widths=null, namespace="mod")
+    namespace = set_namespace(namespace)
+
+    // for equal modules
+    if modules and !widths
+        module = 100/modules
+        for num in 1..modules
+            mod_width = unit((module * num), "%")
+
+            if num isnt modules
+                .{s('%s%s_%s', namespace, num, modules)}
+                    max-width: mod_width
+                    flex: 0 0 mod_width
+
+                    // &[class*="pin-"]
+                    //     width: width
+
+                .{s('push-%s_%s', num, modules)}
+                    margin-left: mod_width
+
+
+
+  // for uneven modules
+  // if width_length > 1
+  //   for w in hash.widths
+  //     .{hash.id}g{i}
+  //       width: ex_g(hash, i)
+
+  //     .{hash.id}offset{i}
+  //       left: ex_g(hash, i)
+
+  //     if i isnt 1 and ceil(ex_g(hash, 1..i)) isnt "100%"
+  //       .{hash.id}pull{length(hash.widths) - i}
+  //         right: ex_g(hash, i...length(hash.widths))
+
+  //       .{hash.id}push{i}
+  //         left: ex_g(hash, 1..i)
+
+  //     if i is 1
+  //       .{hash.id}pull{length(hash.widths) - i}
+  //         right: ex_g(hash, i...length(hash.widths))
+
+  //     i = i +  1
+
+
+
+
+
+
+
+
+// 9.0 Structures -  Flex / Grid
+// mixins that construct flex-box / grid classes
+
+// ==========================================================================
+// 9.1 Flex Module Size / Order
+//
+//
+
+// ==========================================================================
+// 9.2 Flex Rows
+//
+//
+
+// ==========================================================================
+// 9.3 Flex Columns
+//
+//
+
+// ==========================================================================
+// 9.4 Gridset (flex)
+//
+// Defines grid modules from supplied hash argument. Under a given id namespace,
+// grid classes are output for widths (fill), left offset (pushBy), right offset
+// (pullBy).
+//
+// For even grids, a class is created as:
+//    .{namespace}-fill{current module}_{total number of modules}
+//    .u-fill1_4
+//
+//    .{namespace}-pushBy{current module}_{total number of modules}
+//    .u-pushBy1_4
+//
+//    .{namespace}-fill{current module}_{total number of modules}
+//    .u-pullBy1_4
+//
+// `g(hash)` is provided as syntatic sugar to reduce typing
+//
+// @hash (obj) - defined grid hash. You can supply a lamda hash as well
+//
+//  ex = {
+//    id: "ex"
+//    modules: 4
+//    widths: 15 35 35 15
+//  }
+//
+//  base_gridset(ex)
+//
+//  .ex-fill1
+//    width: 15%
+//
+//  .ex-fill2
+//    width: 35%
+//
+//  .ex-fill3
+//    width: 35%
+//
+//  .ex-fill4
+//    width: 15%
+//
+//  .ex-pushBy1
+//    left: 15%
+//
+//  .ex-pushBy2
+//    left: 50%
+//
+//  .ex-pushBy3
+//    left: 85%
+//
+//  .ex-pullBy1
+//    right: 15%
+//
+//  .ex-pullBy2
+//    right: 50%
+//
+//  .ex-pullBy3
+//    right: 85%
+//
+//

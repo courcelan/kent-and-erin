@@ -1,0 +1,15 @@
+-
+    name: Hyatt Place Roanoke Airport / Valley View Mall
+    address:
+        street: 5040 Valley View Boulevard North
+        city_state: Roanoke, Virginia, USA, 24012
+    url: http://www.roanoke.place.hyatt.com/en/hotel/home.html?corp_id=G-HPWB
+    group_code: G-HPWB
+    phone: "888-492-8847"
+    book_by: March 9, 2016
+    rate: starting at $99.00
+
+-
+    name: Hampton Inn
+    url: http://hamptoninn.hilton.com/en/hp/groups/personalized/R/ROARDHX-PHW-20160408/index.jhtml?WT.mc_id=POG
+    rate: "$129.00 – $159.00"

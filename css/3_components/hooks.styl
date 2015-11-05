@@ -1,0 +1,95 @@
+.hook-hed--alt
+    text-transform: uppercase
+
+.hook-meta
+    margin-left: auto
+    +under(breakpoints.condensed)
+        font-size: 12px
+
+    > * + *
+        margin-left: blh(.25)
+        padding-left: blh(.25)
+
+
+.hook-img
+    margin: blh(.25) auto
+
+    +under(breakpoints.condensed)
+        width: 100%
+        max-width: 400px
+
+    +over(breakpoints.condensed)
+        calc-grid: 3 9
+
+    img
+        display: block
+
+    + *
+        padding: blh(.25) blh(.5)
+
+        +over(breakpoints.condensed)
+            calc-grid: 6 9
+
+
+
+
+.hook
+    width: 100%
+
+    > *
+        padding: blh(.25) blh(.5)
+
+    * + *
+        margin-top: 0
+
+.hook--event
+    @extend .hook
+
+    .hook-hdr
+        padding-top: 0
+
+    .hook-meta--ext
+        padding-bottom: 0
+
+.hook--overlay
+    width: 100%
+    max-width: 100%
+    text-align: center
+
+    * + *
+        margin-top: 0
+
+    .hook-hed--alt
+        z-index: 5
+        stack: header
+
+    .ctrl--action--lg
+        z-index: 5
+
+.hook--content
+    width: 100%
+
+    * + *
+        margin-top: 0
+
+    .hook-hed
+        stack: header
+        text-transform: uppercase
+        line-height: 1
+        margin-bottom: -3px
+        letter-spacing: .5px
+
+        +under(breakpoints.condensed)
+            font-size: 20px
+
+    .hook-bd
+        padding: blh(.25)
+
+        +over(breakpoints.condensed)
+            padding: blh()
+
+    .hook-ftr
+        padding-top: blh(.25)
+
+        +over(breakpoints.condensed)
+            padding-top: blh()

@@ -1,0 +1,112 @@
+// 4.0 Structures -  Matrices
+
+// ==========================================================================
+// 4.1 set up matrix containers
+init_matrices()
+    [class*="matrix--"]
+        display: flex
+        flex-wrap: wrap
+
+        // hide any empty matrix/grid
+        &:empty
+            visibility: collapse
+            margin: 0
+
+        > *
+            width: 100%
+
+        // mod-balance should fill the space available in its row
+        > .mod-balance
+            width: auto
+            max-width: none
+            flex: 1 1 auto
+
+
+// Percentage margin/paddings don't work due to flex=box specs,
+// so spacing/vertical needs to be supplied in pixels
+set_matrix(elements=1, spacing=null, vertical=null)
+    // width per element per row, change to a percentage
+    element_width = (100 / elements)
+    element_width = unit(element_width, "%")
+
+    // set up vertical spacing
+    column_spacing = unit(spacing, "px") unless vertical
+    column_spacing = vertical if vertical
+
+    // set up spacing between elements
+    // get total spacing between elements in a row
+    // iteration of spacing is 1 less than the number of elements in row
+    spacing_between_elements = (spacing / elements) * (elements - 1)
+
+    width: s("calc( %s - %s )", element_width, ceil(spacing_between_elements))
+    // max-width: s("calc( %s - %s )", element_width, ceil(spacing_between_elements))
+
+    &:nth-child(n) // clears out any RWD declarations on the matrix
+        margin-top: 0
+
+    &:nth-child(n + {elements + 1}) // sets up the RWD declartions for this matrix
+        margin-top: ceil(column_spacing)
+
+
+    unless elements < 3
+        for _num_ in (3 .. elements)
+
+            // get missing elements outside of the current one
+            missing_elements = elements - _num_ + 1
+            // get new offset to push right
+            new_offset = element_width * missing_elements
+            // fix the space_between issues
+            lagging_space = (spacing / elements) * missing_elements
+
+            &:nth-child({elements}n + {_num_ - 1}):nth-last-child(1)
+                // push to the right the appropriate amount
+                // this will push the other elements in the row
+                // (aside from 1st element) into position
+                margin-right: s("calc( %s + %s )", unit(new_offset, "%"), lagging_space)
+
+release_matrix(obj_width= auto)
+    width: obj_width
+
+
+
+
+set_flush_matrix(elements, vertical=null, namespace=null)
+    // set up namespacing
+    namespace = set_namespace(namespace)
+
+    // set up matrix name
+    matrix_classname = s('%smatrix--%s', namespace, elements)
+
+    // width per element per row, change to a percentage
+    element_width = (100 / elements)
+    element_width = unit(element_width, "%")
+
+    column_spacing = vertical if vertical
+
+    .{matrix_classname}
+        justify-content: flex-start
+        padding-bottom: ceil(column_spacing) unless vertical is 0 or vertical is null
+
+        > .mod-auto
+            width: 100%
+            max-width: element_width
+
+        > [class*="mod-"]
+            margin-top: ceil(column_spacing) unless vertical is 0 or vertical is null
+
+
+
+
+
+//use as a child of set_matrix / set_flush_matrix
+clear_matrix_edges(elements)
+    // we add a bottom margin when creating a matrix/flush-matrix, so clear it out
+    margin-bottom: 0
+
+    $matrix-clear-verticals-{elements}
+        margin-top: 0
+
+    > [class*="mod-"]
+        for _num_ in (1..elements)
+            &:nth-child({_num_})
+                @extend $matrix-clear-verticals-{elements}

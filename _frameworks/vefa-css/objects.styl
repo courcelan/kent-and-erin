@@ -1,0 +1,44 @@
+// 9.0 Objects
+// Object Patterns
+
+// ==========================================================================
+// 9.2 Aspect Ratios
+//
+// Use on elements that need to retain a specific aspect ratio but adapt to
+// width of container
+//
+//
+init_aspect_ratio(namespace="embed")
+    // new_namespace = set_namespace(namespace)
+
+    {s('[class*="%s--"]', namespace)}
+        position: relative
+        overflow: hidden
+        padding: 0
+
+        &::after
+            content: ''
+            display: block
+            height: 0
+
+
+    .{namespace}-item
+        position: absolute
+        top: 0
+        left: 0
+        height: 100%
+        width: 100%
+
+
+//  width, height
+set_aspect_ratio(ratio, namespace="embed")
+    .{namespace}--{ratio[0]}x{ratio[1]}
+        &::after
+            padding-bottom: pct(ratio[1], ratio[0])
+
+
+
+relative-sizing(min_size, max_size, min_width, max_width)
+    delta_size = unit(max_size - min_size, "")
+    delta_width = unit(max_width - min_width, "")
+    s("calc( %s + %s * (100vw - %s) / %s )", min_size, delta_size, min_width, delta_width  )

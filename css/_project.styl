@@ -1,0 +1,77 @@
+res = "../res"
+
+// BREAKPOINTS
+// condensed: sub 600px screens (mainly mobile devices)
+// enhanced: between 600 and 900px screens (mainly tablets, some laptops, large DPI screns)
+// extended: above 901 for large screens / desktops and the like
+//  736 is the width of iphone6+
+max_site_width = 1170px;
+breakpoints = {
+    floor: 320px
+    compressed: 460px
+    condensed: 736px
+    standard: 768px
+    enhanced: 900px
+    expanded: 1200px
+    extended: 1600px
+}
+
+z_index = {
+    above: 10
+    stack: 20
+    masthead: 30
+    nav: 40
+    overlay: 50
+    modal: 60
+}
+
+// TYPE
+type_stacks = {
+    header: azo-sans-web "Azo Sans" helvetica
+    body: jaf-bernino-sans-condensed "HelveticaNeue-CondensedBold" helvetica
+    chrome: helvetica
+}
+
+// type = {
+//     chrome:
+//         size:
+//         line:
+//     small:
+//         size:
+//         line:
+//     min:
+//         size:
+//         line:
+//     maj:
+//         size:
+//         line:
+//     subhed:
+//         size:
+//         line:
+//     display:
+//         size:
+//         line:
+//     poster:
+//         size:
+//         line:
+// }
+
+mobile_font_size = 16px
+base_font_size = 16px
+base_line_height = 24px
+base_gutter = 20px
+
+//COLOR PALETTE
+co = {
+    brand_primary: darken(#f0b334, 10%)
+    brand_primary_alt: darken(#f0b334, 20%)
+    brand_secondary: #cc545b
+    brand_tertiary: #41748d
+
+    copy_base: #473a1e
+
+    neutrals_base: #473a1e
+    neutrals_tint: #8b8279
+    neutrals_shade: #4d4d4d
+
+}

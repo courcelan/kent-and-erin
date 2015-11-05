@@ -1,0 +1,211 @@
+// 6.0 Type
+
+
+// ==========================================================================
+// 6.1 Default font stacks
+arial = Arial, "Helvetica Neue", Helvetica, sans-serif
+baskerville = Baskerville, "Times New Roman", Times, serif
+baskervilleTitle = Baskerville, Times, "Times New Roman", serif
+cambria = Cambria, Georgia, Palatino, "Palatino Linotype", "Times New Roman", Times, serif
+centurygothic = "Century Gothic", "Apple Gothic", sans-serif
+consolas = Consolas, "Lucida Console", Monaco, "Courier New", Courier, monospace
+copperplate = Copperplate, "Copperplate Gothic Light", serif
+courier = "Courier New", Courier, monospace
+franklin = "Franklin Gothic Medium", "Arial Narrow Bold", arial
+futura = Futura, "Century Gothic", "Apple Gothic", sans-serif
+garamond = Garamond, "Hoefler Text", "Times New Roman", Times, serif
+garamondTitle = Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif
+geneva = Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+genevaTitle = Geneva, Verdana, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+georgia = Georgia, Palatino, "Palatino Linotype", "Times New Roman", Times, serif
+georgiaTitle = Georgia, "Times New Roman", Times, serif
+gillsans = "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif
+gillsansTitle = "Gill Sans", "Gill Sans MT", "Trebuchet MS", Calibri, sans-serif
+gillsansBold = "GillSans-Bold", "Gill Sans MT-Bold", Calibri, "Trebuchet MS", sans-serif
+helvetica = "Helvetica Neue", Arial, Helvetica, sans-serif
+helveticaTitle = Helvetica, "Helvetica Neue", Arial, sans-serif
+impact = Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif
+lucidasans = "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+monaco = Monaco, "Courier New", Courier, monospace
+palatino = Palatino, "Palatino Linotype", Georgia, "Times New Roman", Times, serif
+palatinoTitle = Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", Times, serif
+tahoma = Tahoma, Geneva, Verdana
+tahomaTitle = Tahoma, Verdana, Geneva
+times = "Times New Roman", Times, serif
+trebuchet = "Trebuchet MS", "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+trebuchetTitle = "Trebuchet MS", Tahoma, Arial, sans-serif
+verdana = Verdana, Geneva, Tahoma, sans-serif
+verdanaTitle = Verdana, Tahoma, Geneva, sans-serif
+
+
+// ==========================================================================
+// 6.2 Font-load
+webfont(file="", name='FF1', types=null, italic=null, bold=null)
+    @font-face
+        font-family: name
+
+        if types and file
+            file = unquote(file)
+            _src_= ()
+            for _type_ in types
+                _temp_ = s('url("%s.otf") format("opentype")', file) if _type_ is "otf"
+                _temp_ = s('url("%s.ttf") format("truetype")', file) if _type_ is "ttf"
+                _temp_ = s('url("%s.eot?") format("embedded-opentype")', file) if _type_ is "eot"
+                _temp_ = s('url("%s.woff") format("woff")', file) if _type_ is "woff"
+                _temp_ = s('url("%s.woff2") format("woff2")', file) if _type_ is "woff2"
+
+                push(_src_, _temp_)
+
+            src: unquote(join(", ", _src_))
+
+        if italic
+            font-style: italic
+
+        if bold
+            _bold_ = bold
+            font-weight: _bold_
+
+
+
+stack(name)
+    type_set = ( )
+    if type_stacks and type_stacks[name]
+        push(type_set, type_stacks[name])
+
+        sets = shift(type_set)
+
+        for set in type_set
+            temp = join(", ", set)
+            push( sets, temp )
+
+        font-family: unquote( join(", ", sets) )
+
+
+// ==========================================================================
+// 6.3 Text truncation
+truncate()
+    .typ-truncate
+        max-width: 100%
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        word-wrap: normal
+
+        +condensed()
+            white-space: normal
+
+
+// ==========================================================================
+// 6.4 Word breaking
+fix-type-length()
+    .typ-break
+        word-wrap: break-word
+
+
+// ==========================================================================
+// 6.5 Viewport Text Sizing (Experimental)
+min-font-size(min_size, min_width=null, leading = null)
+    if min_width
+        +under(min_width)
+            font-size: min_size
+            line-height: leading if leading
+    else
+        font-size: min_size
+        line-height: leading if leading
+
+max-font-size(max_size, max_width=null, leading = null)
+    if max_width
+        +over(max_width)
+            font-size: max_size
+            line-height: leading if leading
+    else
+        font-size: max_size
+        line-height: leading if leading
+
+
+relative-font-size(min_size, max_size, min_width, max_width, leading = null)
+    delta_font = unit(max_size - min_size, "")
+    delta_width = unit(max_width - min_width, "")
+
+    +between(min_width, max_width)
+        font-size: floor( ( min_size + max_size ) / 2 )
+        font-size: s("calc( %s + %s * (100vw - %s) / %s )", min_size, delta_font, min_width, delta_width  )
+        line-height: leading if leading
+
+
+
+min-spacing(type, min_size, min_width=null)
+    if min_width
+        +under(min_width)
+            {type}: min_size
+    else
+        {type}: min_size
+
+max-spacing(type, max_size, max_width=null)
+    if max_width
+        +over(max_width)
+            {type}: max_size
+    else
+        {type}: max_size
+
+relative-spacing(type, min_size, max_size, min_width, max_width)
+    delta_size = unit(max_size - min_size, "")
+    delta_width = unit(max_width - min_width, "")
+
+
+    +between(min_width, max_width)
+        fallback = floor( ( min_size + max_size ) / 2 )
+        {type}: fallback
+        {type}: s("calc( %s + %s * (100vw - %s) / %s )", min_size, delta_size, min_width, delta_width  )
+
+
+
+
+// 6.0 Type
+// Font sizing and line height are overloaded in 2.0 CSS Overloads. This sets up
+// font-face loader and other helpful type mixins/functions as they become
+// available
+
+
+// ==========================================================================
+// 6.1 Default font stacks
+//
+// Listing of basic (and best supported) font-stacks out of the box for use on
+// sites. See http://unitinteractive.com/blog/2008/06/26/better-css-font-stacks/ (discontinued)
+//
+//
+
+// ==========================================================================
+// 6.2 Font-load
+//
+// load a font-face with a FontSpring bulletproof font declaration
+//
+// @file - the file and its location. no file type
+// @name - user defined font family name to be called
+// @types - otf, ttf, eot, woff, woff2
+// @italic - boolean for if italic version or not
+// @bold - (100 - 900, steps of 100) specify font-weight of font, if applicable
+//
+//
+
+
+// ==========================================================================
+// 6.3 Text truncation
+//
+//  Prevent text from wrapping onto multiple lines, and truncate with an
+//  ellipsis.
+//
+//
+
+
+// ==========================================================================
+// 6.4 Word breaking
+//
+// Break strings when their length exceeds the width of their container. Useful
+// for exposed link urls
+//
+//
+
+
+// ==========================================================================
+// 6.5 Viewport Text Sizing (Experimental)

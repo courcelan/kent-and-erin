@@ -1,0 +1,44 @@
+reset-datetime(off_color, on_color)
+    [type="date"]
+        -webkit-appearance: textfield
+
+    ::-webkit-datetime-edit-month-field,
+    ::-webkit-datetime-edit-day-field,
+    ::-webkit-datetime-edit-year-field
+        color: off_color
+
+    input["value"]
+        &::-webkit-datetime-edit-month-field,
+        &::-webkit-datetime-edit-day-field,
+        &::-webkit-datetime-edit-year-field
+            color: on_color
+
+
+reset-number()
+    [type="number"]
+        -moz-appearance: textfield
+        -webkit-appearance: textfield
+        appearance: textfield
+
+        &::-webkit-inner-spin-button
+        &::-webkit-outer-spin-button
+            -webkit-appearance: none
+
+
+        &:not([no-native-widget])
+            &:hover
+            &:focus
+                -moz-appearance: number-input
+
+                &::-webkit-inner-spin-button
+                    -webkit-appearance: inner-spin-button
+                &::-webkit-outer-spin-button
+                    -webkit-appearance: outer-spin-button
+
+reset-search()
+    [type="search"]
+        -webkit-appearance: none
+
+    ::-webkit-search-decoration
+    ::-webkit-search-cancel-button
+        display: none

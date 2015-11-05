@@ -1,0 +1,134 @@
+// 11.0 STRUCTURE: POSITIONING
+// ==========================================================================
+// Absolutes, Fixed, Layer Z-indexes
+// ==========================================================================
+//
+
+// ==========================================================================
+// 11.1 Pin to a side / Fix to a side
+//
+// makes element absolute/fixed and pins it to the a side of the containing element
+// setting the perpendicular sides to 0 results in centering of element
+//
+//
+$pos-full
+    edges: 0
+
+$pos-t
+    top: 0
+    left: 0
+    right: 0
+
+$pos-b
+    bottom: 0
+    left: 0
+    right: 0
+
+$pos-r
+    top: 0
+    bottom: 0
+    right: 0
+
+$pos-l
+    top: 0
+    bottom: 0
+    left: 0
+
+$pos-tr
+    top: 0
+    right: 0
+
+$pos-tl
+    top: 0
+    left: 0
+
+$pos-br
+    bottom: 0
+    right: 0
+
+$pos-bl
+    bottom: 0
+    left: 0
+
+
+init_pin(types=null, namespace="pin")
+    namespace = set_namespace(namespace)
+
+    {s("[class*='%s']", namespace)}
+        position: absolute
+
+    +prefix-classes(namespace)
+        for type in types
+            type = join("", type)
+            .{type}
+                @extend $pos-{type}
+
+
+
+init_fix(types=null, namespace="fix")
+    namespace = set_namespace(namespace)
+
+    {s("[class*='%s']", namespace)}
+        position: fixed
+        overflow-y: auto
+    +prefix-classes(namespace)
+
+        for type in types
+            type = join("", type)
+            .{type}
+                @extend $pos-{type}
+
+
+init_modal()
+    .fix-modal
+        edges: 0
+
+        > .modal--base
+            display: flex
+            align-items: center
+            justify-content: center
+
+
+
+edges(args...)
+    if length(args) == 1
+        top: args[0]
+        right: args[0]
+        bottom: args[0]
+        left: args[0]
+
+    if length(args) == 2
+        top: args[0]
+        right: args[1]
+        bottom: args[0]
+        left: args[1]
+
+    if length(args) == 3
+        top: args[0]
+        right: args[1]
+        bottom: args[2]
+        left: args[1]
+
+    if length(args) == 4
+        top: args[0] unless args[0] == "x"
+        right: args[1] unless args[1] == "x"
+        bottom: args[2] unless args[2] == "x"
+        left: args[3] unless args[3] == "x"
+
+
+
+// ==========================================================================
+// 11.2 Z-index
+//
+// makes element shift its z-axis to a managed level
+// spares us from typing in random numbers or setting everything to 9999
+//
+//
+base_z = above stack masthead nav overlay modal unless base_z
+
+z(type)
+    val = 1
+    for z in base_z
+        if z is type
+            z-index: val * 100
+        val = val + 1

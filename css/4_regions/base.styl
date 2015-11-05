@@ -1,0 +1,50 @@
+html
+    height: 100%
+    line-height: 1.5
+    text-size-adjust: 100%
+    background-color: wh(100)
+
+body
+    height: 100vh
+    display: flex
+    flex-flow: column
+    stack: body
+    color: co.copy_base
+
+    +over(breakpoints.condensed)
+        +add-after()
+            position: fixed
+            edges: 0
+            opacity: .7
+            background-color: rgba(132,132,132,28%)
+            background-image:  url(res/bkg.afficon2016_std.png)
+            background-size: cover
+            background-position: bottom center
+            background-blend-mode: lighten
+            filter: contrast(.9) brightness(1.1)
+
+
+    +over(breakpoints.expanded)
+        &::after
+            background-image:  url(res/bkg.afficon2016_ext.png)
+
+
+
+main
+    display: block
+    flex: 1 0 auto
+    order: 1
+    width: 100%
+    padding-bottom: blh(4)
+    padding-x: blh(.5)
+
+    +over(breakpoints.condensed)
+        padding-x: blh(.5)
+
+    +over(breakpoints.enhanced)
+        padding-x: blh()
+
+    max-content-width(max_site_width, blh())
+
+    * + *
+        margin-top: blh()

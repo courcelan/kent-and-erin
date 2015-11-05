@@ -1,0 +1,76 @@
+.vw-home
+    .sponsor
+        mix-blend-mode: darken
+
+        +over(breakpoints.condensed)
+            set_matrix(6, blh(), blh(.5))
+
+    .hook--overlay
+        height: 250px
+        padding: blh(.25)
+
+        +over(breakpoints.enhanced)
+            height: 510px
+            padding: blh()
+
+        &::after
+            edges: blh(.25)
+
+            +over(breakpoints.enhanced)
+                edges: blh()
+
+        .hook-hed--alt
+            position: relative
+            z-index: 3
+            +over(breakpoints.enhanced)
+                margin-top: blh(-2)
+
+        .ctrl--action--lg
+            margin-top: blh(3)
+            letter-spacing: 1px
+            relative-font-size: 18px, 24px, breakpoints.floor, breakpoints.expanded
+
+            +over(breakpoints.condensed)
+                align-self: flex-end
+                margin-top: blh(.5)
+                transform: translateX(-15%)
+
+            +over(breakpoints.enhanced)
+                transform: translateX(-45%)
+
+            +ie10()
+                -ms-transform: translatex(0) translateY(blh())
+
+        .hook-img--overlay
+            edges: blh(.25)
+            width: s('calc(100% - %s)', blh(.5))
+            height: s('calc(100% - %s)', blh(.5))
+
+            +over(breakpoints.enhanced)
+                width: s('calc(100% - %s)', blh(2))
+                height: @width
+                edges: blh()
+
+
+    .strata--main
+        border-top: 0
+
+        +over(breakpoints.condensed)
+            width: 80%
+            margin: blh() auto 0
+
+
+// .vw-landing
+//     text-align: center
+//
+//     .strata--intro
+//         > * + *
+//             margin-top: blh(2)
+//
+//     .copy
+//         relative-font-size: 16px, 24px, breakpoints.floor, breakpoints.extended
+//         max-font-size: 24px breakpoints.extended
+//         line-height: 1.5
+//
+//         > * + *
+//             margin-top: blh(.5)

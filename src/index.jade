@@ -1,0 +1,106 @@
+extends _wrapper
+
+block svg
+    include /svg/icons
+
+block base
+    block header
+        header.masthead--cnd.row--pMiddle(
+            role="banner"
+        )
+            h1
+                a.masthead-home.mod-balance(
+                    href="/"
+                ) 
+                    img(
+                        alt="Kent and Erin"
+                        src="/assets/media/hdr.cnd.jpg" 
+                        sizes="100vw" 
+                        srcset="/assets/media/hdr.cnd.jpg 600w, /assets/media/hdr.jpg 768w, /assets/media/hdr.enh.jpg 1000w, /assets/media/hdr.ext.jpg 1400w, /assets/media/hdr.exp.jpg 1800w"
+                    )    
+                .a11y Kent + Erin
+    
+    block main
+    
+    block navigation
+        //- include navigation/nav_primary)
+            
+    block extra
+    
+    block footer
+        footer.colophon.row--pGrid--sMiddle.thm-dark(
+            role="contentinfo"
+        )
+            block footer_nav
+                //- :include(navigation/nav_footer)
+
+            //- small.colophon-legal.typ-chrome.co-sec &copy; 2015 &mdash; American Frozen Food Institute        
+        
+
+
+block meta
+    != vefa.site_author("Cobey POtter")
+    //- != vefa.google_verification("K_ug-qvYWsijRRQskQLFO2bTPiabqX3bnwF7o8QXBs4")
+    
+
+block prefetch
+    //- link(rel="prefetch", href="/register/")
+    //- link(rel="prefetch", href="/schedule/")
+
+//- block favicons
+//-     link(rel="apple-touch-icon", sizes="57x57", href="{% static 'res/favicons/apple-touch-icon-57x57.png' %}")
+//-     link(rel="apple-touch-icon", sizes="60x60", href="{% static 'res/favicons/apple-touch-icon-60x60.png' %}")
+//-     link(rel="apple-touch-icon", sizes="72x72", href="{% static 'res/favicons/apple-touch-icon-72x72.png' %}")
+//-     link(rel="apple-touch-icon", sizes="76x76", href="{% static 'res/favicons/apple-touch-icon-76x76.png' %}")
+//-     link(rel="apple-touch-icon", sizes="114x114", href="{% static 'res/favicons/apple-touch-icon-114x114.png' %}")
+//-     link(rel="apple-touch-icon", sizes="120x120", href="{% static 'res/favicons/apple-touch-icon-120x120.png' %}")
+//-     link(rel="apple-touch-icon", sizes="144x144", href="{% static 'res/favicons/apple-touch-icon-144x144.png' %}")
+//-     link(rel="apple-touch-icon", sizes="152x152", href="{% static 'res/favicons/apple-touch-icon-152x152.png' %}")
+//-     link(rel="apple-touch-icon", sizes="180x180", href="{% static 'res/favicons/apple-touch-icon-180x180.png' %}")
+//-     link(rel="icon", type="image/png", href="{% static 'res/favicons/favicon-32x32.png' %}", sizes="32x32")
+//-     link(rel="icon", type="image/png", href="{% static 'res/favicons/android-chrome-192x192.png' %}", sizes="192x192")
+//-     link(rel="icon", type="image/png", href="{% static 'res/favicons/favicon-96x96.png' %}", sizes="96x96")
+//-     link(rel="icon", type="image/png", href="{% static 'res/favicons/favicon-16x16.png' %}", sizes="16x16")
+//-     link(rel="manifest", href="{% static 'res/favicons/manifest.json' %}")
+//-     meta(name="apple-mobile-web-app-title", content="AFFI-CON 2016")
+//-     meta(name="application-name", content="AFFI-CON 2016")
+//-     meta(name="msapplication-TileColor", content="#e8e8e8")
+//-     meta(name="msapplication-TileImage", content="{% static 'res/favicons/mstile-144x144.png' %}")
+//-     meta(name="theme-color", content="#ffffff")
+
+
+block css
+    link(
+        rel="stylesheet"
+        href="/assets/css/site.css"
+    )
+    
+    if site.supportIE9
+        <!--[if lte IE 9]>
+        link(rel="stylesheet", href="/assets/css/site_ie9.css")
+        <![endif]-->
+
+
+block head_js
+    script document.createElement( "picture" )
+    
+    if site.typekit
+        script(src="//use.typekit.net/#{site.typekit}.js")
+        script try{Typekit.load({async:true});}catch(e){}
+
+    if site.supportIE9 || site.supportIE8
+        <!--[if IE 8]>
+        script(src="http://html5shiv.googlecode.com/svn/trunk/html5.js")
+        <![endif]-->
+
+
+block js
+    script(src="https://cdn.jsdelivr.net/g/picturefill@3.0.1,lazysizes@1.3.1(plugins/bgset/ls.bgset.min.js+lazysizes.min.js)", async)
+
+    //- if site.angular
+    //-     for file in site.angular.dependencies
+    //-         script(src="#{file}")
+    //-     script(src="/assets/js/app.js")
+    
+        
+        

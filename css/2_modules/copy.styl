@@ -1,104 +1,104 @@
-[class*="copy"]
-    background: wh(25)
-    relative-font-size: 14px, 16px, breakpoints.floor, breakpoints.condensed
-    line-height: 1.5
-
-    > * + *
-        margin-top: .5rem
-
-    strong
-        font-weight: 900
-
-    a
-        color: co.brand_secondary
-        layers()
-
-        &::after
-            transition: all .3s
-            edges: 0 -.15em
-
-        +hover(all .3s)
-            color: #FCFBFA
-
-            &::after
-                transition: all .3s
-                background: co.brand_secondary
-
-    h1
-    h2
-        font-size: 21px
-        relative-font-size: 21px, 24px, breakpoints.floor, breakpoints.condensed
-        max-font-size: 24px, breakpoints.condensed
-        letter-spacing: .5 px
-        color: co.brand_primary_alt
-
-        &:not(:first-child)
-            margin-top: 2rem
-
-    h3
-        font-size: 17.5px
-        relative-font-size: 17.5px, 20px, breakpoints.floor, breakpoints.condensed
-        max-font-size: 20px, breakpoints.condensed
-        text-transform: capitalize
-        letter-spacing: .5px
-        color: co.brand_tertiary
-
-        &:not(:first-child)
-            margin-top: 1rem
-
-
-    h4
-        text-transform: uppercase
-        color: mix(co.neutrals_shade, co.brand_tertiary, 25%)
-
-        + *
-            margin-top: 0
-
-    ul
-        padding-left: bfs(1)
-
-        li
-            display: list-item
-
-            &::before
-                content: ""
-                display: block
-                position: absolute
-                margin-top: .5em
-                margin-left: -1em
-                sq: .5em
-                line-height: .5em
-                background: co.brand_primary
-                border-radius: 50%
-
-            + li
-                margin-top: .25rem
-
-        + *
-            margin-top: 1.5rem
-
-    dt
-        color: co.brand_secondary
-
-        +add-after()
-            bottom: 0
-            width: 100%
-            height: 1px
-            background: currentColor
-
-    h4 + dl,
-    dt + dd
-        margin-top: bfs(.5)
-
-
-    img
-        width: 25%
-        margin-top: blh(.125)
-
-        &.left
-            float: left
-            margin-right: blh(.5)
-
-        &.right
-            float: right
-            margin-right: blh(.5)
+// [class*="copy"]
+//     background: wh(25)
+//     relative-font-size: 14px, 16px, breakpoints.floor, breakpoints.condensed
+//     line-height: 1.5
+//
+//     > * + *
+//         margin-top: .5rem
+//
+//     strong
+//         font-weight: 900
+//
+//     a
+//         color: co.brand_secondary
+//         layers()
+//
+//         &::after
+//             transition: all .3s
+//             edges: 0 -.15em
+//
+//         +hover(all .3s)
+//             color: #FCFBFA
+//
+//             &::after
+//                 transition: all .3s
+//                 background: co.brand_secondary
+//
+//     h1
+//     h2
+//         font-size: 21px
+//         relative-font-size: 21px, 24px, breakpoints.floor, breakpoints.condensed
+//         max-font-size: 24px, breakpoints.condensed
+//         letter-spacing: .5 px
+//         color: co.brand_primary_alt
+//
+//         &:not(:first-child)
+//             margin-top: 2rem
+//
+//     h3
+//         font-size: 17.5px
+//         relative-font-size: 17.5px, 20px, breakpoints.floor, breakpoints.condensed
+//         max-font-size: 20px, breakpoints.condensed
+//         text-transform: capitalize
+//         letter-spacing: .5px
+//         color: co.brand_tertiary
+//
+//         &:not(:first-child)
+//             margin-top: 1rem
+//
+//
+//     h4
+//         text-transform: uppercase
+//         color: mix(co.neutrals_shade, co.brand_tertiary, 25%)
+//
+//         + *
+//             margin-top: 0
+//
+//     ul
+//         padding-left: bfs(1)
+//
+//         li
+//             display: list-item
+//
+//             &::before
+//                 content: ""
+//                 display: block
+//                 position: absolute
+//                 margin-top: .5em
+//                 margin-left: -1em
+//                 sq: .5em
+//                 line-height: .5em
+//                 background: co.brand_primary
+//                 border-radius: 50%
+//
+//             + li
+//                 margin-top: .25rem
+//
+//         + *
+//             margin-top: 1.5rem
+//
+//     dt
+//         color: co.brand_secondary
+//
+//         +add-after()
+//             bottom: 0
+//             width: 100%
+//             height: 1px
+//             background: currentColor
+//
+//     h4 + dl,
+//     dt + dd
+//         margin-top: bfs(.5)
+//
+//
+//     img
+//         width: 25%
+//         margin-top: blh(.125)
+//
+//         &.left
+//             float: left
+//             margin-right: blh(.5)
+//
+//         &.right
+//             float: right
+//             margin-right: blh(.5)

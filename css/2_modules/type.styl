@@ -27,6 +27,37 @@
     line-height: 1.2
 
 .typ-poster
-    relative-font-size: 24px, 64px, breakpoints.floor, breakpoints.expanded
-    font-weight: 900
+    // relative-font-size: 1.333em, 64px, breakpoints.floor, breakpoints.expanded
+    font-size: 2.369rem
     line-height: 1
+
+.strata
+    padding-y: blh(3)
+
+.iten-list
+    * + *
+        margin-top: 0
+    a
+        font-weight: 900
+        text-decoration: underline
+
+    dd
+        dt
+        dd
+            float: left
+            margin-right: .4em
+
+        dt
+            font-weight: 900
+
+            &::after
+                content: ":"
+
+    dt
+        clear: both
+
+.iten-list-hed
+    font-weight: 900
+
+    &:nth-child(n+2)
+        padding-top: blh(2)

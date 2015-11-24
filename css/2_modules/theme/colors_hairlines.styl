@@ -1,27 +1,24 @@
 .co-pri
-    color: co.brand_primary
+    color: co.brand_pri
 
-    &--alt
-        color: co.brand_primary_alt
 
 .co-sec
-    color: co.brand_secondary
+    color: co.brand_sec
 
 .co-tert
-    color: co.brand_tertiary
+    color: co.brand_tert
 
 .co-minor
     color: co.neutrals_shade
 
 .co-ctrl
-    color: co.brand_secondary
+    color: co.brand_pri
 
     &:hover
-        will-change: color
-        color: darken(co.brand_secondary, 35%)
-
-    &.is-active
-        color: co.neutrals_shade
+        color: darken(@color, 15%)
+    //
+    // &.is-active
+    //     color: co.neutrals_shade
 
 
 

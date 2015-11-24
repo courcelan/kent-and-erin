@@ -5,28 +5,75 @@ block svg
 
 block base
     block header
-        header.masthead--cnd.row--pMiddle(
+        header.masthead--cnd.a11y(
             role="banner"
         )
-            h1
+            h1.col--pMiddle--sMiddle
                 a.masthead-home.mod-balance(
                     href="/"
                 ) 
-                    img(
-                        alt="Kent and Erin"
-                        src="/assets/media/hdr.cnd.jpg" 
-                        sizes="100vw" 
-                        srcset="/assets/media/hdr.cnd.jpg 600w, /assets/media/hdr.jpg 768w, /assets/media/hdr.enh.jpg 1000w, /assets/media/hdr.ext.jpg 1400w, /assets/media/hdr.exp.jpg 1800w"
-                    )    
-                .a11y Kent + Erin
-    
+                    svg.ico-logo
+                        use(xlink:href="#sigil")
+                    
+                    .masthead-title
+                        .masthead-title-erin Erin Elizabeth Potter
+                        .masthead-title-and &amp;
+                        .masthead-title-kent Kent Bulman Hodgson
+
+
     block main
-    
+        main
+            .strata
+                header.strata-hdr
+                    h1.strata-hed.typ-poster Hotels
+                
+                dl.iten-list
+                    dt.iten-list-hed Hyatt Place Roanoke Airport / Valley View Mall
+                    dd
+                        div 5040 Valley View Boulevard North
+                        div Roanoke, Virginia, USA, 24012
+                        div
+                            a(href="tel:888-492-8847") 888-492-8847
+                    dd
+                        dl
+                            dt Rates
+                            dd starting at $99.00
+                            dt Book by
+                            dd March 9, 2016
+                            dt Group Code
+                            dd G-HPWB
+                            dt Book room(s) at
+                            dd
+                                a.co-ctrl.fx-shift(href="http://www.roanoke.place.hyatt.com/en/hotel/home.html?corp_id=G-HPWB", target="_blank") Hyatt Place
+                    dt.iten-list-hed Hampton Inn
+                    dd
+                        dl
+                            dt Rates
+                            dd $129.00 - $159.00
+                            dt Book room(s) at
+                            dd
+                                a.co-ctrl.fx-shift(href="http://hamptoninn.hilton.com/en/hp/groups/personalized/R/ROARDHX-PHW-20160408/index.jhtml?WT.mc_id=POG", target="_blank") Hampton Inn
+
+                        
     block navigation
-        //- include navigation/nav_primary)
+        nav.masthead.matrix--pGrid--sStart(role="navigation")
+            a.masthead-home.row--pStart--sMiddle(
+                href="/"
+            )
+                svg.ico-logo
+                    use(xlink:href="#sigil")
+                
+                .masthead-title.col--pStart--sMiddle
+                    .masthead-title-erin Erin Elizabeth Potter
+                    .masthead-title-and &amp;
+                    .masthead-title-kent Kent Bulman Hodgson
+                        
+            .masthead-navbar
+                .nav-primary
             
     block extra
-    
+
+
     block footer
         footer.colophon.row--pGrid--sMiddle.thm-dark(
             role="contentinfo"
@@ -39,7 +86,7 @@ block base
 
 
 block meta
-    != vefa.site_author("Cobey POtter")
+    != vefa.site_author("Cobey Potter")
     //- != vefa.google_verification("K_ug-qvYWsijRRQskQLFO2bTPiabqX3bnwF7o8QXBs4")
     
 
@@ -47,26 +94,27 @@ block prefetch
     //- link(rel="prefetch", href="/register/")
     //- link(rel="prefetch", href="/schedule/")
 
-//- block favicons
-//-     link(rel="apple-touch-icon", sizes="57x57", href="{% static 'res/favicons/apple-touch-icon-57x57.png' %}")
-//-     link(rel="apple-touch-icon", sizes="60x60", href="{% static 'res/favicons/apple-touch-icon-60x60.png' %}")
-//-     link(rel="apple-touch-icon", sizes="72x72", href="{% static 'res/favicons/apple-touch-icon-72x72.png' %}")
-//-     link(rel="apple-touch-icon", sizes="76x76", href="{% static 'res/favicons/apple-touch-icon-76x76.png' %}")
-//-     link(rel="apple-touch-icon", sizes="114x114", href="{% static 'res/favicons/apple-touch-icon-114x114.png' %}")
-//-     link(rel="apple-touch-icon", sizes="120x120", href="{% static 'res/favicons/apple-touch-icon-120x120.png' %}")
-//-     link(rel="apple-touch-icon", sizes="144x144", href="{% static 'res/favicons/apple-touch-icon-144x144.png' %}")
-//-     link(rel="apple-touch-icon", sizes="152x152", href="{% static 'res/favicons/apple-touch-icon-152x152.png' %}")
-//-     link(rel="apple-touch-icon", sizes="180x180", href="{% static 'res/favicons/apple-touch-icon-180x180.png' %}")
-//-     link(rel="icon", type="image/png", href="{% static 'res/favicons/favicon-32x32.png' %}", sizes="32x32")
-//-     link(rel="icon", type="image/png", href="{% static 'res/favicons/android-chrome-192x192.png' %}", sizes="192x192")
-//-     link(rel="icon", type="image/png", href="{% static 'res/favicons/favicon-96x96.png' %}", sizes="96x96")
-//-     link(rel="icon", type="image/png", href="{% static 'res/favicons/favicon-16x16.png' %}", sizes="16x16")
-//-     link(rel="manifest", href="{% static 'res/favicons/manifest.json' %}")
-//-     meta(name="apple-mobile-web-app-title", content="AFFI-CON 2016")
-//-     meta(name="application-name", content="AFFI-CON 2016")
-//-     meta(name="msapplication-TileColor", content="#e8e8e8")
-//-     meta(name="msapplication-TileImage", content="{% static 'res/favicons/mstile-144x144.png' %}")
-//-     meta(name="theme-color", content="#ffffff")
+block favicons
+    link(rel='apple-touch-icon', sizes='57x57', href='/assets/favicons/apple-touch-icon-57x57.png')
+    link(rel='apple-touch-icon', sizes='60x60', href='/assets/favicons/apple-touch-icon-60x60.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='/assets/favicons/apple-touch-icon-72x72.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='/assets/favicons/apple-touch-icon-76x76.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='/assets/favicons/apple-touch-icon-114x114.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='/assets/favicons/apple-touch-icon-120x120.png')
+    link(rel='apple-touch-icon', sizes='144x144', href='/assets/favicons/apple-touch-icon-144x144.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='/assets/favicons/apple-touch-icon-152x152.png')
+    link(rel='apple-touch-icon', sizes='180x180', href='/assets/favicons/apple-touch-icon-180x180.png')
+    link(rel='icon', type='image/png', href='/assets/favicons/favicon-32x32.png', sizes='32x32')
+    link(rel='icon', type='image/png', href='/assets/favicons/android-chrome-192x192.png', sizes='192x192')
+    link(rel='icon', type='image/png', href='/assets/favicons/favicon-96x96.png', sizes='96x96')
+    link(rel='icon', type='image/png', href='/assets/favicons/favicon-16x16.png', sizes='16x16')
+    link(rel='manifest', href='/assets/favicons/manifest.json')
+    link(rel='mask-icon', href='/assets/favicons/safari-pinned-tab.svg', color='#a4c3b8')
+    meta(name='apple-mobile-web-app-title', content='Kent + Erin')
+    meta(name='application-name', content='Kent + Erin')
+    meta(name='msapplication-TileColor', content='#da532c')
+    meta(name='msapplication-TileImage', content='/assets/favicons/mstile-144x144.png')
+    meta(name='theme-color', content='#a4c3b8')
 
 
 block css

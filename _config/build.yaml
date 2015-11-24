@@ -75,7 +75,7 @@ assets:
         - "!**/*.zip"
         - "!**/*.ai"
     cwd: "res"
-    destination: "__build/assets/media"
+    destination: "__build/assets"
     shopify: ""
 
 

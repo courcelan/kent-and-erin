@@ -1,4 +1,5 @@
-typekit: flf0vej
+typekit: false
+google_fonts: Josefin+Sans:400,600,700
 analytics: UA-35114742-1
 angular:
     dependencies:

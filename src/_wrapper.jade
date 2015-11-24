@@ -1,7 +1,7 @@
 doctype html
 html(lang="en-US", ng-app="client")
     head
-        title AFFI-CON 2016 &mdash; Takin' Care of Business
+        title Erin and Kent get Married!
         meta(charset="utf-8")
         
         != vefa.ie_basics()
@@ -12,6 +12,12 @@ html(lang="en-US", ng-app="client")
         block prefetch
         
         block css
+        
+        if site.google_fonts
+            link(
+                href='https://fonts.googleapis.com/css?family=#{site.google_fonts}' 
+                rel='stylesheet' 
+            )
         
         block head_js
                 

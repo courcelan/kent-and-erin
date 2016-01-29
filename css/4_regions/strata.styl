@@ -1,0 +1,73 @@
+.strata
+
+    +same-sibling()
+        +over(breakpoints.standard)
+            margin-top: blh(3)
+
+    + hr
+        +over(breakpoints.standard)
+            margin-y: blh(3)
+
+    .strata-hdr
+        width: 100%
+
+    .strata-pri
+
+        +over(breakpoints.condensed)
+            calc-grid: 1 2 blh()
+
+            +same-sibling()
+                +add-before()
+                    edges: 0 auto 0 blh(-1)
+                    border-left: 1px dashed co.brand_pri
+
+.strata-copy--alt_2
+    margin-bottom: blh(2)
+
+.strata-copy--alt
+    margin-bottom: blh(2)
+
+    > *
+        +over(breakpoints.compressed)
+            set-matrix: 3 blh()
+            min-width: calc(50% - 12px)
+
+            &:first-child
+                width: 100%
+
+        +over(breakpoints.enhanced)
+            min-width: 270px
+
+            &:first-child
+                calc-grid: 1 3 16px
+
+    hr
+        margin-x: blh()
+
+figure
+    text-align: center
+
+    +same-sibling()
+        padding-top: blh(1.5)
+        border-top: co.brand_pri
+
+
+    > * + *
+        margin-top: blh(.25)
+
+    img
+        display: block
+        max-width: 350px
+        margin-x: auto
+
+
+
+figcaption
+    font-weight: 900
+//
+//
+// .card-hed
+//     font-weight: 900
+//
+// .card-subhed
+//     margin-top: 0

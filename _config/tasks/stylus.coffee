@@ -29,7 +29,7 @@ module.exports = (gulp, plugins, config) ->
                 log: true
                 cache: false
                 showFiles: true
-                import: ["#{__dirname}/../../#{ config.stylus.framework.cwd }/*"]
+                # import: ["#{__dirname}/../../#{ config.stylus.framework.cwd }/*"]
             )
         )
         .pipe(

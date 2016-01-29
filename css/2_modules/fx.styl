@@ -5,6 +5,42 @@ $med-change-all
     transition: all .75s
 
 
+@keyframes glass-and-sun
+    0%
+        filter: brightness(1)
+    25%
+        filter: brightness(1.25)
+    30%
+        filter: brightness(1.15)
+    50%
+        filter: brightness(1.1)
+    70%
+        filter: brightness(1.05)
+    75%
+        filter: brightness(1)
+    100%
+        filter: brightness(1)
+
+
+
+
+
+
 .fx-shift
 .fx-shift:hover
     @extend $quick-change-all
+
+
+.fx-switch-ctrl
+    ~ .fx-switch
+        display: none
+
+    &:checked ~ .fx-switch
+        display: flex
+
+    +under(breakpoints.standard)
+        ~ .fx-switch--std
+            display: none
+
+        &:checked ~ .fx-switch--std
+            display: flex

@@ -1,0 +1,55 @@
+.nav-pri
+    display: flex
+    background: rgba(co.brand_quad, 50%)
+    border-bottom: 1px solid co.neutrals_tint
+
+    +under(breakpoints.standard)
+        flex-direction: column
+
+    +over(breakpoints.standard)
+        display: flex !important
+
+.nav-pri-ctrl
+    position: absolute
+    edges: blh(.5) blh(.5) auto auto
+    stack: chrome
+    font-weight: 900
+    color: co.brand_quad
+    cursor: pointer
+
+    +over(breakpoints.standard)
+        display: none
+
+    i
+        margin-right: blh(.25)
+
+.nav-pri-item
+    width: 100%
+    display: block
+
+    +same-sibling()
+        border-left: 1px dotted wh(100)
+
+.nav-pri-link
+    display: block
+    width: 100%
+    padding-x: blh(.5)
+    line-height: 2
+    font-weight: 700
+    letter-spacing: 1px
+    text-transform: uppercase
+
+    &:hover
+        background: rgba(co.brand_quad, 25%)
+
+    +over(breakpoints.standard)
+        height: blh()
+        overflow: hidden
+        font-size: 14px
+        line-height: blh(1.1)
+        text-align: center
+
+    +over(breakpoints.expanded)
+        height: blh(2)
+        font-size: 18px
+        line-height: blh(2.2)

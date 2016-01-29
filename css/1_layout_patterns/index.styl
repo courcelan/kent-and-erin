@@ -8,45 +8,46 @@
 //
 //
 
-// ==========================================================================
-// breakouts: isolations and insulations
-//
-//
-// @require "breakouts"
 
 // ==========================================================================
 // flex modules
 //
 //
-@require "flex-modules"
+.mod-static
+.mod-media
+    flex: flex_mods[static]
 
+.mod-balance
+    flex: flex_mods[balance]
 
 // ==========================================================================
 // flex rows and columns (do not wrap by default)
 //
 //
-@require "flexes"
+init-flexes()
 
 
 // ==========================================================================
 // flex matrices (rows that wrap to form object grids)
 //
 //
-@require "matrices"
+init-matrices()
 
 
 // ==========================================================================
 // Flex flags that alter the layout of flex items
 //
 //
-@require "flex-flags"
-
+init-flex-primary-flags(Grid Space Start End Middle)
+init-flex-secondary-flags(Start End Middle Full)
+// init-flex-alternate-flags()
 
 // ==========================================================================
 // uses embed structure based on aspect ratios
 //
 //
-@require "embeds"
+// init-embed-object()
+// set-embed-ratio(16 9)
 
 
 // ==========================================================================
@@ -54,4 +55,14 @@
 // that may have some intrinsic defaults different from flex rows/col/matrix
 //
 //
-@require "media"
+init-media-object()
+
+[class*="media--"]
+    .mod-media
+        margin-right: blh()
+
+    +under(breakpoints.condensed)
+        flex-flow: column
+
+        .mod-media
+            margin-x: auto

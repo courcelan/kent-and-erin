@@ -1,63 +1,47 @@
-.typ-chrome
-    font-size: 12px
-    line-height: 1
+typography = {
+    typ-chrome: {
+        font-size: 12px
+        line-height: 1
+        stack: chrome
+    }
+    typ-small: {
+        font-size: 14px
+        line-height: 1.6
+    }
+    typ-min: {
+        min: 13px breakpoints.standard
+        max: 16px breakpoints.expanded
+    }
+    typ-maj: {
+        min: 16px breakpoints.floor
+        max: 18px breakpoints.expanded
+    }
+    typ-display: {
+        min: 20px breakpoints.floor
+        max: 24px breakpoints.expanded
+        line-height: 1
+    }
+    typ-lede: {
+        min: 24px breakpoints.standard
+        max: 30px breakpoints.expanded
+        line-height: 1.4
+    }
+    typ-poster: {
+        min: 48px 1 breakpoints.floor
+        max: 56.856px breakpoints.expanded
+    }
+}
 
+type-chart()
+
+// .typ-subhed
+//     font-size: 34px;
+//     // relative-font-size: 18px, 24px, breakpoints.floor, breakpoints.expanded
 //
-// .typ-small
-//     font-size: 14px
-//     line-height: 1.6
+// .typ-display
+//     relative-font-size: 18px, 30px, breakpoints.floor, breakpoints.expanded
+//     line-height: 1.2
 //
-
-.typ-min
-    relative-font-size: 13px, 16px, breakpoints.standard, breakpoints.expanded
-
-.typ-maj
-    relative-font-size: 16px, 18px, breakpoints.floor, breakpoints.expanded
-
-.typ-lede
-    relative-font-size: 16px, 24px, breakpoints.standard, breakpoints.expanded
-    line-height: 1.2
-
-
-.typ-subhed
-    relative-font-size: 18px, 24px, breakpoints.floor, breakpoints.expanded
-
-.typ-display
-    relative-font-size: 18px, 30px, breakpoints.floor, breakpoints.expanded
-    line-height: 1.2
-
-.typ-poster
-    // relative-font-size: 1.333em, 64px, breakpoints.floor, breakpoints.expanded
-    font-size: 2.369rem
-    line-height: 1
-
-.strata
-    padding-y: blh(3)
-
-.iten-list
-    * + *
-        margin-top: 0
-    a
-        font-weight: 900
-        text-decoration: underline
-
-    dd
-        dt
-        dd
-            float: left
-            margin-right: .4em
-
-        dt
-            font-weight: 900
-
-            &::after
-                content: ":"
-
-    dt
-        clear: both
-
-.iten-list-hed
-    font-weight: 900
-
-    &:nth-child(n+2)
-        padding-top: blh(2)
+// .strata
+//     padding-y: blh(3)
+//

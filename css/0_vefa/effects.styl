@@ -1,0 +1,36 @@
+// ==========================================================================
+// Backplate Visibility
+//
+//
+backface(hide=false)
+    transform: translate3d(0,0,0) /* stops flickering */
+    backface-visibility: hidden if hide
+    backface-visibility: visible unless hide
+
+hide_backface()
+    backface(hidden)
+
+
+// ==========================================================================
+// Smooth state transitions
+//
+//
+smooth_transition(decs, type)
+    \,
+    &:{type}
+        transition: decs
+
+    &:{type}
+        {block}
+
+hover(decs)
+    +smooth_transition(decs, hover)
+        {block}
+
+focus(decs)
+    +smooth_transition(decs, focus)
+        {block}
+
+active(decs)
+    +smooth_transition(decs, active)
+        {block}

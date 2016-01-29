@@ -1,0 +1,72 @@
+// hattip to https://github.com/jorenvanhee/sass-burger/
+
+burger = {
+    height: 0px,
+    gutter: 0px
+}
+
+burger-icon(gutter = 3px, transition_duration = .3s)
+    burger.height = @height
+    burger.gutter = gutter
+
+    position: relative
+    margin-top: @height + gutter
+    margin-bottom: @margin-top
+
+    &,
+    &::before,
+    &::after
+        display: block
+        height: @height
+        background-color: currentColor unless @background-color
+        border-radius: @border-radius if @border-radius
+        transition: background-color transition_duration, transform transition_duration unless @transition
+
+    &::before,
+    &::after
+        position: absolute
+        content: ""
+        width: 100%
+        background-color: @background-color if @background-color
+        transition: @transition if @transition
+
+    &::before
+        top: -(@height + gutter)
+
+    &::after
+        top: @height + gutter
+
+// Select parts of the burger
+burger-parts()
+    &
+    &::before
+    &::after
+        {block}
+
+burger-top()
+    &:before
+        {block}
+
+burger-middle()
+    &
+        {block}
+
+burger-bottom()
+    &::after
+        {block}
+
+
+// Burger animations
+burger-to-cross()
+    &
+        background-color: transparent
+
+    &::before
+    &::after
+        background-color: @background-color if @background-color
+
+    &::before
+        transform: translateY(burger.gutter + burger.height) rotate(45deg)
+
+    &::after
+        transform: translateY(-(burger.gutter + burger.height)) rotate(-45deg)

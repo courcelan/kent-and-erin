@@ -1,0 +1,47 @@
+bridesmaids:
+    -   name: Melinda Biancuzzo
+        title: Matron of Honor
+        img: bridesmaids/mel.jpg
+    -   name: Jennifer Shanholtzer (soon to be Herttua)
+        title: Maid of Honor
+        img: bridesmaids/jenny.jpg
+    -   name: Carolyn Potter
+        title: Bridesmaid
+        img: bridesmaids/carolyn.jpg
+    -   name: Monique Esper
+        title: Bridesmaid
+        img: bridesmaids/monique.jpg
+    -   name: Yvette Journey
+        title: Bridesmaid
+        img: bridesmaids/yvette.jpg
+    -   name: Gwyn Loope
+        title: Bridesmaid
+        img: bridesmaids/gwyn.jpg
+    -   name: Michelle Ferenchiak
+        title: Bridesmaid
+        img: bridesmaids/meesh.jpg
+    -   name: Sarah Jordan
+        title: Bridesmaid
+        img: bridesmaids/sarah.jpg
+groomsmen:
+    -   name: Matt Ruxer
+        title: Best Man
+        img: groomsmen/matt.jpg
+    -   name: Pete Hodgson
+        title: Groomsman
+        img: groomsmen/pete.jpg
+    -   name: Dan Hodgson
+        title: Groomsman
+        img: groomsmen/dan.jpg
+    -   name: Jonathan Potter
+        title: Groomsman
+        img: groomsmen/jonathan.jpg
+    -   name: Will Smith
+        title: Groomsman
+        img: groomsmen/will.jpg
+    -   name: Pete Tzinso
+        title: Groomsman
+        img: groomsmen/pete_t.jpg
+    -   name: Rob Anastasio
+        title: Groomsman
+        img: groomsmen/rob.jpg

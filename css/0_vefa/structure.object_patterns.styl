@@ -1,0 +1,72 @@
+// ==========================================================================
+// Embed Aspect Ratios
+//
+// Use on elements that need to retain a specific aspect ratio but adapt to
+// width of container
+//
+//
+init-embed-object(namespace=embed)
+    {s('[class*="%s--"]', namespace)}
+        position: relative
+        overflow: hidden
+        padding: 0
+
+        &::after
+            content: ''
+            display: block
+            height: 0
+
+
+    .{namespace}-item
+        position: absolute
+        top: 0
+        left: 0
+        height: 100%
+        width: 100%
+
+
+//  width, height
+set-embed-ratio(ratio, namespace="embed")
+    .{namespace}--{ratio[0]}x{ratio[1]}
+        &::after
+            padding-bottom: pct(ratio[1], ratio[0])
+
+
+
+init-media-object(namespace=media)
+    {s('[class*="%s--"]', namespace)}
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-between
+
+        > * + *
+            margin-top: 0
+
+        &:not([class*="--xRev"])
+            .mod-{namespace}
+                +over(breakpoints.condensed)
+                    margin-right: gutter(.5)
+
+
+        // forces a layout to have media follow the supporting copy
+        // template: .mod-media + .mod-balance
+        // or
+        // template: .mod-balance + .mod-media
+        // renders:
+        // .mod-balance + .mod-media
+        &[class*="--xRev"]
+            .mod-balance
+            .mod-static
+                order: 1
+
+            .mod-{namespace}
+                order: 2
+
+
+
+
+
+// relative-sizing(min_size, max_size, min_width, max_width)
+//     delta_size = unit(max_size - min_size, "")
+//     delta_width = unit(max_width - min_width, "")
+//     s("calc( %s + %s * (100vw - %s) / %s )", min_size, delta_size, min_width, delta_width  )

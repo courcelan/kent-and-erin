@@ -1,0 +1,68 @@
+extends index    
+
+mixin li_card(item)
+    li.card
+        header.card-hdr.media--pStart--sStart
+            img.card-img.mod-media(
+                src=vefa.static("media/"+item.img)
+            )
+            .mod-balance.typ-maj
+                h3.card-hed.typ-display= item.name
+                p.card-subhed.co-sec= item.title
+
+block main
+    article.strata.matrix--pGrid--sTop
+        header.strata-hdr
+            h1.strata-hed.typ-poster Our Wedding
+        .strata-pri
+            h2.typ-lede Ceremony
+            
+            .media--pStart--sStart
+                .mod-media
+                    img(
+                        width="150"
+                        src=vefa.static("media/st_andrews.jpg")
+                    )
+                .mod-balance
+                    dl.iten-list
+                        dt.iten-list-hed 2 pm St. Andrews Catholic Church
+                        dd A full Catholic service officiated by Erin's Roanoke priest, Fr. Joe Lehman
+                        
+                    p Transportation will be provided between the Church and Museum at the conclusion of the ceremony.
+                
+        .strata-pri
+            h2.typ-lede Cocktail Hour &amp; Reception
+            
+            .media--pStart--sStart
+                .mod-media
+                    img(
+                        width="258"
+                        src=vefa.static("media/taubman.jpg")
+                    )
+                
+                dl.iten-list.mod-balance
+                    dt.iten-list-hed 4 pm Taubman Art Museum Cocktail Hour
+                    dd Our guests are encouraged to visit the gallery opened during this time (no drinks allowed, though!)
+                    dt.iten-list-hed 5 pm Taubman Art Museum Reception
+                    dd Enjoy dinner and dancing underneath a view of the Roanoke Star and skyline.
+                    
+        
+        p: b * Due to limited space and seating, we kindly request no children attend. We hope you understand and will still be able to share in our special day.
+                
+            
+    
+    article.strata.matrix--pGrid--sTop
+        header.strata-hdr
+            h1.strata-hed.typ-poster Our Wedding Party
+        
+        section.strata-pri
+            h2.typ-subhed Bridesmaids
+            ul
+                for person in wedding_party.bridesmaids
+                    +li_card(person)
+                
+        section.strata-pri
+            h2.typ-subhed Groomsmen
+            ul
+                for person in wedding_party.groomsmen
+                    +li_card(person)

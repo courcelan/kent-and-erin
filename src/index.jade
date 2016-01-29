@@ -1,5 +1,27 @@
 extends _wrapper
 
+mixin col_image(url)
+    li.gallery-item&attributes(attributes)
+        img(src=vefa.static('media/'+url))
+
+mixin gallery_1()
+        ul.gallery--flow-col
+            +col_image("kentanderin9.jpg").no-cnd
+            +col_image("kentanderin4.jpg").no-cnd
+            +col_image("kentanderin7.jpg")
+            +col_image("kentanderin10.jpg").no-cnd
+            +col_image("kentanderin11.jpg").no-cnd
+            +col_image("kentanderin16.jpg").no-cnd
+            
+mixin gallery_2()
+    ul.gallery--flow-col
+        +col_image("kentanderin8.jpg").no-cnd             
+        +col_image("kentanderin13.jpg").no-cnd
+        +col_image("kentanderin12.jpg").no-cnd
+        +col_image("kentanderin15.jpg").no-cnd
+        +col_image("kentanderin14.jpg").no-cnd
+        +col_image("kentanderin15.jpg")
+
 block svg
     include /svg/icons
 
@@ -20,56 +42,68 @@ block base
                         .masthead-title-and &amp;
                         .masthead-title-kent Kent Bulman Hodgson
 
-
-    block main
-        main
-            .strata
+    main
+        block main
+            article.strata
                 header.strata-hdr
-                    h1.strata-hed.typ-poster Hotels
+                    h1.strata-hed.typ-poster Welcome!
                 
-                dl.iten-list
-                    dt.iten-list-hed Hyatt Place Roanoke Airport / Valley View Mall
-                    dd
-                        div 5040 Valley View Boulevard North
-                        div Roanoke, Virginia, USA, 24012
-                        div
-                            a(href="tel:888-492-8847") 888-492-8847
-                    dd
-                        dl
-                            dt Rates
-                            dd starting at $99.00
-                            dt Book by
-                            dd March 9, 2016
-                            dt Group Code
-                            dd G-HPWB
-                            dt Book room(s) at
-                            dd
-                                a.co-ctrl.fx-shift(href="http://www.roanoke.place.hyatt.com/en/hotel/home.html?corp_id=G-HPWB", target="_blank") Hyatt Place
-                    dt.iten-list-hed Hampton Inn
-                    dd
-                        dl
-                            dt Rates
-                            dd $129.00 - $159.00
-                            dt Book room(s) at
-                            dd
-                                a.co-ctrl.fx-shift(href="http://hamptoninn.hilton.com/en/hp/groups/personalized/R/ROARDHX-PHW-20160408/index.jhtml?WT.mc_id=POG", target="_blank") Hampton Inn
+                .strata-bd.copy
+                    p Hello friends and family,
+                    p We are honored you will share in our special day. Your presence is our gift!
+                    p Thanks for visiting and we can't wait to see you on our big day!
+                
+                ul.gallery--flow-col
+                    +col_image("kentanderin9.jpg")
+                    +col_image("kentanderin4.jpg")
+                    +col_image("kentanderin7.jpg")
+                    +col_image("kentanderin8.jpg")                    
+                    +col_image("kentanderin10.jpg")
+                    +col_image("kentanderin11.jpg")
+                    +col_image("kentanderin13.jpg")
+                    +col_image("kentanderin12.jpg")
+                    +col_image("kentanderin16.jpg")
+                    +col_image("kentanderin15.jpg")
+                    +col_image("kentanderin14.jpg")
+                    +col_image("kentanderin5.jpg")
+                
 
                         
     block navigation
         nav.masthead.matrix--pGrid--sStart(role="navigation")
-            a.masthead-home.row--pStart--sMiddle(
+            a.masthead-home.matrix--pMiddle--sMiddle(
                 href="/"
             )
-                svg.ico-logo
+                svg.masthead-logo.ico-logo
                     use(xlink:href="#sigil")
                 
-                .masthead-title.col--pStart--sMiddle
+                .masthead-title.col--pStart--sMiddle.typ-poster
                     .masthead-title-erin Erin Elizabeth Potter
                     .masthead-title-and &amp;
                     .masthead-title-kent Kent Bulman Hodgson
-                        
+
             .masthead-navbar
-                .nav-primary
+                input#nav-pri-ctrl-switch.fx-switch-ctrl.a11y(type="checkbox")
+                
+                .nav-pri.row--pGrid--sStart.fx-switch
+                    li.nav-pri-item.mod-balance
+                        a.nav-pri-link.co-ctrl.fx-shift(href="/story-and-proposal") 
+                            | Our 
+                            span Story &amp;&nbsp;
+                            | Proposal
+                    li.nav-pri-item.mod-balance
+                        a.nav-pri-link.co-ctrl.fx-shift(href="/wedding") Our Wedding
+                    li.nav-pri-item.mod-balance
+                        a.nav-pri-link.co-ctrl.fx-shift(href="/registry") Our Registry
+                    li.nav-pri-item.mod-balance
+                        a.nav-pri-link.co-ctrl.fx-shift(href="/accommodations") Accommodations
+                    li.nav-pri-item.mod-balance
+                        a.nav-pri-link.co-ctrl.fx-shift(href="/things-to-do") Things to Do
+                
+                label.nav-pri-ctrl.row--pMiddle--sMiddle(for="nav-pri-ctrl-switch")
+                    i.ico-menu
+                    span.typ-small Menu
+                        
             
     block extra
 

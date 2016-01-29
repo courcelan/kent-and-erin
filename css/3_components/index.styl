@@ -1,2 +1,76 @@
 @require "forms"
 @require "hooks"
+
++common(gallery)
+    margin-x: auto
+
+    > * + *
+        margin-top: 0
+
+    img
+        display: block
+        object-fit: cover
+        object-position: center
+        sq: 100%
+
+
+
+flow_col_width = unit((max_site_width / (bfs(1.5) * 6)), "rem")
+
+.gallery
+    .gallery-item
+        flex: 1 1
+        min-width: flow_col_width
+        set-matrix: 6
+        height: flow_col_width
+
+        +under(breakpoints.condensed)
+            height: auto
+            max-width: flow_col_width*2
+            margin-x: auto
+
+.gallery--flow-col
+    columns: flow_col_width
+    column-gap: 0
+
+    .gallery-item
+        padding-top: 100%
+
+    img
+        position: absolute
+        top: 0
+        left: 0
+
+
+.gallery-item
+    display: block
+    position: relative
+
+
+.iten-list
+    * + *
+        margin-top: 0
+    a
+        font-weight: 900
+        text-decoration: underline
+
+    dd
+        dt
+        dd
+            float: left
+            margin-right: .4em
+
+        dt
+            font-weight: 900
+
+            &::after
+                content: ":"
+
+    dt
+        clear: both
+
+.iten-list-hed
+    font-weight: 900
+
+    &:nth-child(n+2)
+        padding-top: blh(2)

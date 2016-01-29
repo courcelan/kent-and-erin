@@ -1,0 +1,33 @@
+// ==========================================================================
+// Dev Tools
+// helps for layout and alignment on vertical and horizontal grid does not
+// add to width and height; sits one pixel outside of actual width and height.
+// Additionally, a background is added based on the content box, enabling
+// visualization of element padding.
+//
+// @color - set color value for outline, defaults to red
+//
+//
+o(color=red)
+    outline: 1px solid color
+
+b(color=red)
+    o()
+    background-color: rgba(color, 50%)
+    background-clip: content-box
+
+dev_tools(color=red, namespace=null)
+
+    .{namespace}b
+        b(color)
+
+    .{namespace}o
+        o(color)
+
+    .{namespace}lh-test
+        layers()
+
+        &::after
+            border-bottom: color
+            width: 1000%
+            edges: 0px auto auto 0px

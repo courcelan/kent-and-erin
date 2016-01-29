@@ -1,0 +1,138 @@
+// ==========================================================================
+// Z-index
+//
+// makes element shift its z-axis to a managed level
+// spares us from typing in random numbers or setting everything to 9999
+//
+//
+base_z = above stack masthead nav overlay modal
+z(type)
+    for z, key in base_z
+        if z is type
+            z-index: key * 100
+
+
+
+// ==========================================================================
+// Square dimensions
+//
+//
+sq(arg)
+    width: arg
+    height: arg
+
+max-sq(arg)
+    max-width: arg
+    max-height: arg
+
+
+
+// ==========================================================================
+// Padding quick set
+//
+//
+padding-x(pad_value)
+    padding-left: pad_value
+    padding-right: pad_value
+
+padding-y(pad_value)
+    padding-top: pad_value
+    padding-bottom: pad_value
+
+
+
+// ==========================================================================
+// Margin quick set
+//
+//
+margin-x(pad_value)
+    margin-left: pad_value
+    margin-right: pad_value
+
+
+margin-y(pad_value)
+    margin-top: pad_value
+    margin-bottom: pad_value
+
+// ==========================================================================
+// Positioning
+//
+//
+edges(args...)
+    if length(args) == 1
+        top: args[0]
+        right: args[0]
+        bottom: args[0]
+        left: args[0]
+
+    if length(args) == 2
+        top: args[0]
+        right: args[1]
+        bottom: args[0]
+        left: args[1]
+
+    if length(args) == 3
+        top: args[0]
+        right: args[1]
+        bottom: args[2]
+        left: args[1]
+
+    if length(args) == 4
+        top: args[0] unless args[0] == "x"
+        right: args[1] unless args[1] == "x"
+        bottom: args[2] unless args[2] == "x"
+        left: args[3] unless args[3] == "x"
+
+
+
+// ==========================================================================
+// calculate a grid module
+//
+//
+set_grid(columns, totalColumns, gutter=null, type=width)
+    gutter = s("-  %s", gutter) if gutter
+    perc = 100% * (columns / totalColumns)
+    column_dimension = s("calc(%s %s)", perc, gutter) if gutter
+    column_dimension = perc unless gutter
+    // column_dimension = s("calc( (100% * (%s / %s)) %s )", columns, totalColumns, gutter)
+
+    if mixin
+        {type}: column_dimension
+    else
+        column_dimension
+
+
+calc-grid(columns, totalColumns, gutter=null)
+    set_grid(columns, totalColumns, gutter, width)
+
+calc-max-grid(columns, totalColumns, gutter=null)
+    set_grid(columns, totalColumns, gutter, max-width)
+
+
+
+// ==========================================================================
+// calculate a grid module offset
+//
+//
+calc-offset(columns, totalColumns, gutter=null)
+    dimension = calc-grid(columns, totalColumns, gutter)
+
+    if mixin
+        margin-left: dimension
+    else
+        dimension
+
+
+
+// ==========================================================================
+// Set max content width via padding
+//
+// gives you centered content and allows background to fill horizontal space
+//
+max-content-width(max_content, lower_bound=null)
+    // computed
+    computed_fence = max_content
+    computed_fence = computed_fence + lower_bound*2 if lower_bound
+
+    +over(computed_fence)
+        padding-x: s("calc( (100vw - %s)/2 )", max_content)

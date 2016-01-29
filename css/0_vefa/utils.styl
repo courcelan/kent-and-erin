@@ -1,0 +1,155 @@
+// ==========================================================================
+// Quote
+// quote a variable/syntax, for when its needed
+//
+quote(var)
+    return s('"%s"', var)
+
+
+
+// ==========================================================================
+// Percentage
+//
+//
+pct( numerator, denominator )
+    return unit( (numerator/denominator) * 100, "%")
+
+
+
+// ==========================================================================
+// [class*="classname partial"] helpers
+//
+//
+c(namespace, prefix="", suffix="")
+    class_str = ""
+
+    for name in namespace
+        class_str += s('.%s', name)
+        class_str += ","
+        class_str += s('[class*="%s%s%s"]', unquote(prefix), name, unquote(suffix))
+        class_str += ","
+
+    class_arr = split(',', class_str)
+    pop(class_arr)
+    class_arr = join(", ", class_arr)
+
+    return class_arr
+
+common(namespace, suffix="--")
+    class_str = c(namespace: namespace, suffix:suffix)
+
+    {class_str}
+        {block}
+
+
+flag(namespace, prefix="--")
+    .test
+        pre: prefix
+    class_str = c(namespace: namespace, prefix:prefix)
+
+    {class_str}
+        {block}
+
+
+
+// ==========================================================================
+// Sibling syntatic sugar
+//
+// not sure which is more effective
+//
+//
+same-sibling()
+    sel = split(" ", selector())
+
+    if length(sel) > 1
+        & + ^[1..-1]
+            {block}
+
+    else
+        & + &
+            {block}
+
+following()
+    // & + & is this faster or needed?
+    &:nth-of-type(n+2)
+        {block}
+
+
+// ==========================================================================
+// Layers/Before/After
+//
+//
+add_parent()
+    if add_to_parent
+        position: relative unless @position
+        z-index: 1 unless @z-index
+
+add_pseudo_context(pos=absolute)
+    {block}
+    content: "" unless @content
+    display: block
+    position: pos
+    z-index: -1
+
+add-layers(pos=absolute)
+    add_parent()
+
+    &::before
+    &::after
+        +add_pseudo_context(pos)
+            {block}
+
+add-before(pos=absolute)
+    add_parent()
+
+    &::before
+        +add_pseudo_context(pos)
+            {block}
+
+add-after(pos=absolute)
+    add_parent()
+
+    &::after
+        +add_pseudo_context(pos)
+            {block}
+
+layers()
+    &::before
+    &::after
+        {block}
+
+before()
+    &::before
+        {block}
+
+after()
+    &::after
+        {block}
+
+
+// some convoluted functions that I don't remember what they do, but keeping around
+// figure out where in the BEVM syntax tree this is called from.
+// callee(from=called-from)
+//     called_from = split(" ", from)
+//     from = unquote(called_from[0])
+//     return from
+//
+// // get the base block name
+// get_selector(sel=selector())
+//     selector = "dummy" + sel
+//     selector = split("", extname(selector))
+//     remove_dummy = shift(selector)
+//     selector = unquote(join("", selector))
+//     return selector
+//
+//
+// get_selector_tree(base=selector(), joiner="")
+//     tree = split(" ", base)
+//     sel = ()
+//     for branch in tree
+//         leaves = split("", branch)
+//         remove_dummy = shift( leaves )
+//         branch = unquote( join("", leaves) )
+//         push(sel, branch)
+//     sel = join(joiner, sel)
+//     return sel

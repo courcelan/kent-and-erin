@@ -1,45 +1,7 @@
 // 6.0 Type
 
-
 // ==========================================================================
-// 6.1 Default font stacks
-arial = Arial, "Helvetica Neue", Helvetica, sans-serif
-baskerville = Baskerville, "Times New Roman", Times, serif
-baskervilleTitle = Baskerville, Times, "Times New Roman", serif
-cambria = Cambria, Georgia, Palatino, "Palatino Linotype", "Times New Roman", Times, serif
-centurygothic = "Century Gothic", "Apple Gothic", sans-serif
-consolas = Consolas, "Lucida Console", Monaco, "Courier New", Courier, monospace
-copperplate = Copperplate, "Copperplate Gothic Light", serif
-courier = "Courier New", Courier, monospace
-franklin = "Franklin Gothic Medium", "Arial Narrow Bold", arial
-futura = Futura, "Century Gothic", "Apple Gothic", sans-serif
-garamond = Garamond, "Hoefler Text", "Times New Roman", Times, serif
-garamondTitle = Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif
-geneva = Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
-genevaTitle = Geneva, Verdana, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
-georgia = Georgia, Palatino, "Palatino Linotype", "Times New Roman", Times, serif
-georgiaTitle = Georgia, "Times New Roman", Times, serif
-gillsans = "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif
-gillsansTitle = "Gill Sans", "Gill Sans MT", "Trebuchet MS", Calibri, sans-serif
-gillsansBold = "GillSans-Bold", "Gill Sans MT-Bold", Calibri, "Trebuchet MS", sans-serif
-helvetica = "Helvetica Neue", Arial, Helvetica, sans-serif
-helveticaTitle = Helvetica, "Helvetica Neue", Arial, sans-serif
-impact = Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif
-lucidasans = "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
-monaco = Monaco, "Courier New", Courier, monospace
-palatino = Palatino, "Palatino Linotype", Georgia, "Times New Roman", Times, serif
-palatinoTitle = Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", Times, serif
-tahoma = Tahoma, Geneva, Verdana
-tahomaTitle = Tahoma, Verdana, Geneva
-times = "Times New Roman", Times, serif
-trebuchet = "Trebuchet MS", "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
-trebuchetTitle = "Trebuchet MS", Tahoma, Arial, sans-serif
-verdana = Verdana, Geneva, Tahoma, sans-serif
-verdanaTitle = Verdana, Tahoma, Geneva, sans-serif
-
-
-// ==========================================================================
-// 6.2 Font-load
+// Font-load
 webfont(file="", name='FF1', types=null, italic=null, bold=null)
     @font-face
         font-family: name
@@ -104,33 +66,65 @@ fix-type-length()
 
 // ==========================================================================
 // 6.5 Viewport Text Sizing (Experimental)
-min-font-size(min_size, min_width=null, leading = null)
-    if min_width
-        +under(min_width)
-            font-size: min_size
-            line-height: leading if leading
-    else
+//
+// minimum: font-size [line-height] min-width<length>
+// maximum: font-size [line-height] max-width<length>
+// give_minimum: [false]<boolean> - removes minimum value from output
+//                                  in case you need different sizes before relative starts
+relative-font-size(minimum, maximum, give_minimum=true)
+    min_size = minimum[0]
+    min_lh = null
+    min_bound = minimum[1]
+
+    max_size = maximum[0]
+    max_lh = null
+    max_bound = maximum[1]
+
+    if length(minimum) > 2
+        min_lh = minimum[1]
+        min_bound = minimum[2]
+
+    if length(maximum) > 2
+        max_lh = maximum[1]
+        max_bound = maximum[2]
+
+    // min values
+    if give_minimum
+        // +under(min_bound)
         font-size: min_size
-        line-height: leading if leading
+        line-height: min_lh if min_lh
 
-max-font-size(max_size, max_width=null, leading = null)
-    if max_width
-        +over(max_width)
-            font-size: max_size
-            line-height: leading if leading
-    else
+    // responsive / relative
+    // +between(min_bound, max_bound)
+    +over(min_bound)
+        d_size = unit(max_size - min_size, "")
+        d_bound = unit(max_bound - min_bound, "")
+
+        font-size: floor( (min_size + max_size) / 2)
+        font-size: s("calc( %s + %s * (100vw - %s) /  %s)", min_size, d_size, min_bound, d_bound)
+
+        if (min_lh and max_lh) and min_lh is not max_lh
+            fb_lh = floor( (min_lh + max_lh) / 2)
+            line-height: floor( (min_lh + max_lh) / 2) if fb_lh > min_lh
+
+            if unit(min_lh) is ''
+                d_min_lh = min_lh * min_size
+            else
+                d_min_lh = min_lh
+
+            if unit(max_lh) is ''
+                d_max_lh = max_lh * max_size
+            else
+                d_max_lh = max_lh
+
+            d_lh = unit(d_max_lh - d_min_lh, "")
+            line-height: s("calc( %s + %s * (100vw - %s) /  %s)", d_min_lh, d_lh, min_bound, d_bound)
+
+    // max values
+    +over(max_bound)
         font-size: max_size
-        line-height: leading if leading
+        line-height: max_lh if max_lh and min_lh is not max_lh
 
-
-relative-font-size(min_size, max_size, min_width, max_width, leading = null)
-    delta_font = unit(max_size - min_size, "")
-    delta_width = unit(max_width - min_width, "")
-
-    +between(min_width, max_width)
-        font-size: floor( ( min_size + max_size ) / 2 )
-        font-size: s("calc( %s + %s * (100vw - %s) / %s )", min_size, delta_font, min_width, delta_width  )
-        line-height: leading if leading
 
 
 
@@ -208,4 +202,37 @@ relative-spacing(type, min_size, max_size, min_width, max_width)
 
 
 // ==========================================================================
-// 6.5 Viewport Text Sizing (Experimental)
+// 6.1 Default font stacks
+arial = Arial, "Helvetica Neue", Helvetica, sans-serif
+baskerville = Baskerville, "Times New Roman", Times, serif
+baskervilleTitle = Baskerville, Times, "Times New Roman", serif
+cambria = Cambria, Georgia, Palatino, "Palatino Linotype", "Times New Roman", Times, serif
+centurygothic = "Century Gothic", "Apple Gothic", sans-serif
+consolas = Consolas, "Lucida Console", Monaco, "Courier New", Courier, monospace
+copperplate = Copperplate, "Copperplate Gothic Light", serif
+courier = "Courier New", Courier, monospace
+franklin = "Franklin Gothic Medium", "Arial Narrow Bold", arial
+futura = Futura, "Century Gothic", "Apple Gothic", sans-serif
+garamond = Garamond, "Hoefler Text", "Times New Roman", Times, serif
+garamondTitle = Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif
+geneva = Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+genevaTitle = Geneva, Verdana, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+georgia = Georgia, Palatino, "Palatino Linotype", "Times New Roman", Times, serif
+georgiaTitle = Georgia, "Times New Roman", Times, serif
+gillsans = "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif
+gillsansTitle = "Gill Sans", "Gill Sans MT", "Trebuchet MS", Calibri, sans-serif
+gillsansBold = "GillSans-Bold", "Gill Sans MT-Bold", Calibri, "Trebuchet MS", sans-serif
+helvetica = "Helvetica Neue", Arial, Helvetica, sans-serif
+helveticaTitle = Helvetica, "Helvetica Neue", Arial, sans-serif
+impact = Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif
+lucidasans = "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+monaco = Monaco, "Courier New", Courier, monospace
+palatino = Palatino, "Palatino Linotype", Georgia, "Times New Roman", Times, serif
+palatinoTitle = Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", Times, serif
+tahoma = Tahoma, Geneva, Verdana
+tahomaTitle = Tahoma, Verdana, Geneva
+times = "Times New Roman", Times, serif
+trebuchet = "Trebuchet MS", "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+trebuchetTitle = "Trebuchet MS", Tahoma, Arial, sans-serif
+verdana = Verdana, Geneva, Tahoma, sans-serif
+verdanaTitle = Verdana, Tahoma, Geneva, sans-serif

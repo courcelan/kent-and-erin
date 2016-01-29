@@ -1,0 +1,194 @@
+reset(forms=true)
+    *
+        background-repeat: no-repeat
+        margin: 0
+        padding: 0
+        box-sizing: border-box
+        font-size: 100%
+        list-style: none
+        font-style: normal
+
+    h1
+    h2
+    h3
+    h4
+    h5
+    h6
+        font-weight: inherit
+
+    a
+        text-decoration: none
+
+    img
+        border: 0
+        width: 100%
+        max-width: 100%
+
+        &[width]
+        &[height]
+            width: auto
+            max-width: auto
+
+    svg
+        display: block
+        fill: currentColor
+
+    .a11y
+        position: absolute !important
+        left: 0
+        width: 0
+        clip: rect(0,0,0,0)
+
+    // a,
+    // abbr,
+    // cite,
+    // mark,
+    // time,
+    // span
+    //     font-size: inherit
+    //     font-style: inherit
+    //     font-weight: inherit
+    //     font-variant: inherit
+    //     letter-spacing: inherit
+    //     line-height: inherit
+    //     text-align: inherit
+    //     text-transform: inherit
+    //     color: inherit
+    //     vertical-align: top
+    //
+    //
+    //
+    if forms
+        form
+            :focus
+                outline: 0
+
+            ::-moz-focus-inner
+                padding: 0
+                border: 0
+
+        fieldset
+            border: 0
+
+        input:not([type="checkbox"]):not([type="radio"]),
+        select,
+        textarea,
+        button
+            // margin: 0
+            width: 100%
+            font-family: inherit
+            font-size: inherit
+            line-height: inherit
+            border: 0
+            border-radius: 0
+            cursor: pointer
+
+        button
+            width: auto
+            background: none
+            white-space: nowrap
+            -moz-appearance: none
+            -webkit-appearance: none
+            appearance: none
+            user-select: none
+
+        :hover
+        :focus
+        :active
+            text-decoration: none
+            outline: 0
+
+        [disabled]
+        :disabled
+        [aria-disabled]
+            cursor: default
+
+
+reset-datetime()
+    [type="date"]
+        -webkit-appearance: textfield
+
+    ::-webkit-datetime-edit-month-field,
+    ::-webkit-datetime-edit-day-field,
+    ::-webkit-datetime-edit-year-field
+        color: currentColor
+
+    input["value"]
+        &::-webkit-datetime-edit-month-field,
+        &::-webkit-datetime-edit-day-field,
+        &::-webkit-datetime-edit-year-field
+            color: currentColor
+
+
+reset-number()
+    [type="number"]
+        -moz-appearance: textfield
+        -webkit-appearance: textfield
+        appearance: textfield
+
+        &::-webkit-inner-spin-button
+        &::-webkit-outer-spin-button
+            -webkit-appearance: none
+
+
+        &:not([no-native-widget])
+            &:hover
+            &:focus
+                -moz-appearance: number-input
+
+                &::-webkit-inner-spin-button
+                    -webkit-appearance: inner-spin-button
+                &::-webkit-outer-spin-button
+                    -webkit-appearance: outer-spin-button
+
+reset-search()
+    [type="search"]
+        -webkit-appearance: none
+
+    ::-webkit-search-decoration
+    ::-webkit-search-cancel-button
+        display: none
+
+reset-form-fields()
+    reset-datetime()
+    reset-number()
+    reset-search()
+
+
+
+// ==========================================================================
+// Initialize HTML tag
+//
+//
+init-html()
+    html
+        {block}
+        height: 100%
+        font-size: 62.5% unless @font-size
+        text-size-adjust: 100%
+
+
+// ==========================================================================
+// Initialize body tag
+//
+//
+init-body()
+    body
+        {block}
+        height: 100vh unless @height
+        display: flex unless @display
+        flex-flow: column unless @flex-flow
+
+
+// ==========================================================================
+// Initialize main tag
+//
+//
+init-main()
+    main
+        if block
+            {block}
+        display: block unless @display
+        flex: 1 0 auto unless @flex
+        order: 2 unless @order
+        width: 100% unless @width

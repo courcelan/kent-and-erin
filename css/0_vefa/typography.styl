@@ -1,0 +1,255 @@
+// Type
+
+// ==========================================================================
+// Basic typography, can be overwritten in your project stylus file
+//
+//
+typography = {
+    typ-chrome: {
+        font-size: 12px
+        line-height: 1
+    }
+    typ-small: {
+        font-size: 14px
+        line-height: 1.6
+    }
+    typ-poster: {
+        min: 48px 1 breakpoints.floor
+        max: 56.856px breakpoints.expanded
+    }
+}
+
+
+
+// ==========================================================================
+// Base Font Size
+//
+//
+bfs(value=null)
+    return value ? floor( base_font_size * value ) : base_font_size
+    // if value
+    //     return floor( base_font_size * value )
+    // else
+    //     return base_font_size
+
+
+
+// ==========================================================================
+// Base Line Height
+//
+//
+blh(value=null)
+    return value ? floor( base_line_height * value ) : base_line_height
+    // if value
+    //     return floor( base_line_height * value )
+    // else
+    //     return floor( base_line_height )
+
+
+
+// ==========================================================================
+// Font-load
+//
+// load a font-face with a FontSpring bulletproof font declaration
+//
+// @file - the file and its location. no file type
+// @name - user defined font family name to be called
+// @types - otf, ttf, eot, woff, woff2
+// @italic - boolean for if italic version or not
+// @bold - (100 - 900, steps of 100) specify font-weight of font, if applicable
+
+//
+//
+webfont(file="", name='FF1', types=null, italic=null, bold=null)
+    @font-face
+        font-family: name
+
+        if types and file
+            file = unquote(file)
+            _src_= ()
+            for _type_ in types
+                _temp_ = s('url("%s.otf") format("opentype")', file) if _type_ is "otf"
+                _temp_ = s('url("%s.ttf") format("truetype")', file) if _type_ is "ttf"
+                _temp_ = s('url("%s.eot?") format("embedded-opentype")', file) if _type_ is "eot"
+                _temp_ = s('url("%s.woff") format("woff")', file) if _type_ is "woff"
+                _temp_ = s('url("%s.woff2") format("woff2")', file) if _type_ is "woff2"
+
+                push(_src_, _temp_)
+
+            src: unquote(join(", ", _src_))
+
+        if italic
+            font-style: unquote('italic')
+
+        if bold
+            font-weight: bold
+
+
+// ==========================================================================
+// Font stacks getter
+//
+//
+stack(name)
+    type_set = ( )
+    if type_stacks and type_stacks[name]
+        push(type_set, type_stacks[name])
+
+        sets = shift(type_set)
+
+        for set in type_set
+            temp = join(", ", set)
+            push( sets, temp )
+
+        font-family: unquote( join(", ", sets) )
+
+
+
+// ==========================================================================
+// Type chart
+//
+// Define a typography hash in your project file or locally
+//
+//
+type-chart()
+    for item in typography
+        .{item}
+            unless typography[item]["font-size"]
+                relative-font-size: typography[item]["min"], typography[item]["max"]
+
+            for prop in typography[item]
+                unless prop is "min" or prop is "max"
+                    {prop}: typography[item][prop]
+
+
+
+// ==========================================================================
+// 6.5 Viewport Text Sizing (Experimental)
+//
+// minimum: font-size [line-height] min-width<length>
+// maximum: font-size [line-height] max-width<length>
+// give_minimum: [false]<boolean> - removes minimum value from output
+//                                  in case you need different sizes before relative starts
+relative-font-size(minimum, maximum, give_minimum=true)
+    min_size = minimum[0]
+    min_lh = null
+    min_bound = minimum[1]
+
+    max_size = maximum[0]
+    max_lh = null
+    max_bound = maximum[1]
+
+    if length(minimum) > 2
+        min_lh = minimum[1]
+        min_bound = minimum[2]
+
+    if length(maximum) > 2
+        max_lh = maximum[1]
+        max_bound = maximum[2]
+
+    // min values
+    if give_minimum
+        // +under(min_bound)
+        font-size: min_size
+        line-height: min_lh if min_lh
+
+    // responsive / relative
+    // +between(min_bound, max_bound)
+    +over(min_bound)
+        d_size = unit(max_size - min_size, "")
+        d_bound = unit(max_bound - min_bound, "")
+
+        font-size: floor( (min_size + max_size) / 2)
+        font-size: s("calc( %s + %s * (100vw - %s) /  %s)", min_size, d_size, min_bound, d_bound)
+
+        if (min_lh and max_lh) and min_lh is not max_lh
+            fb_lh = floor( (min_lh + max_lh) / 2)
+            line-height: floor( (min_lh + max_lh) / 2) if fb_lh > min_lh
+
+            if unit(min_lh) is ''
+                d_min_lh = min_lh * min_size
+            else
+                d_min_lh = min_lh
+
+            if unit(max_lh) is ''
+                d_max_lh = max_lh * max_size
+            else
+                d_max_lh = max_lh
+
+            d_lh = unit(d_max_lh - d_min_lh, "")
+            line-height: s("calc( %s + %s * (100vw - %s) /  %s)", d_min_lh, d_lh, min_bound, d_bound)
+
+    // max values
+    +over(max_bound)
+        font-size: max_size
+        line-height: max_lh if max_lh and min_lh is not max_lh
+
+
+
+// ==========================================================================
+// Text truncation
+//
+//  Prevent text from wrapping onto multiple lines, and truncate with an
+//  ellipsis.
+//
+//
+truncate()
+    max-width: 100%
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    word-wrap: normal
+
+    +under(breakpoints.condensed)
+        white-space: normal
+
+
+
+// ==========================================================================
+// Word breaking
+//
+// Break strings when their length exceeds the width of their container. Useful
+// for exposed link urls
+//
+//
+fix-type-length()
+    word-wrap: break-word
+
+
+
+// ==========================================================================
+// Default font stacks
+//
+//
+arial = Arial, "Helvetica Neue", Helvetica, sans-serif
+baskerville = Baskerville, "Times New Roman", Times, serif
+baskervilleTitle = Baskerville, Times, "Times New Roman", serif
+cambria = Cambria, Georgia, Palatino, "Palatino Linotype", "Times New Roman", Times, serif
+centurygothic = "Century Gothic", "Apple Gothic", sans-serif
+consolas = Consolas, "Lucida Console", Monaco, "Courier New", Courier, monospace
+copperplate = Copperplate, "Copperplate Gothic Light", serif
+courier = "Courier New", Courier, monospace
+franklin = "Franklin Gothic Medium", "Arial Narrow Bold", arial
+futura = Futura, "Century Gothic", "Apple Gothic", sans-serif
+garamond = Garamond, "Hoefler Text", "Times New Roman", Times, serif
+garamondTitle = Garamond, "Hoefler Text", Palatino, "Palatino Linotype", serif
+geneva = Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+genevaTitle = Geneva, Verdana, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+georgia = Georgia, Palatino, "Palatino Linotype", "Times New Roman", Times, serif
+georgiaTitle = Georgia, "Times New Roman", Times, serif
+gillsans = "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif
+gillsansTitle = "Gill Sans", "Gill Sans MT", "Trebuchet MS", Calibri, sans-serif
+gillsansBold = "GillSans-Bold", "Gill Sans MT-Bold", Calibri, "Trebuchet MS", sans-serif
+helvetica = "Helvetica Neue", Arial, Helvetica, sans-serif
+helveticaTitle = Helvetica, "Helvetica Neue", Arial, sans-serif
+impact = Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif
+lucidasans = "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+monaco = Monaco, "Courier New", Courier, monospace
+palatino = Palatino, "Palatino Linotype", Georgia, "Times New Roman", Times, serif
+palatinoTitle = Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", Times, serif
+tahoma = Tahoma, Geneva, Verdana
+tahomaTitle = Tahoma, Verdana, Geneva
+times = "Times New Roman", Times, serif
+trebuchet = "Trebuchet MS", "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif
+trebuchetTitle = "Trebuchet MS", Tahoma, Arial, sans-serif
+verdana = Verdana, Geneva, Tahoma, sans-serif
+verdanaTitle = Verdana, Tahoma, Geneva, sans-serif

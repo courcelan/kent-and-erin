@@ -1,19 +1,30 @@
 // CONFIG
 // Basic web styles (mobile first)
 //////////////////
-@import "_project"
+@require "0_vefa/development.styl"
+@require "0_vefa/utils.styl"
+@require "0_vefa/breakpoints.styl"
+@require "0_vefa/initializations.styl"
+@require "0_vefa/structure.flex.styl"
+@require "0_vefa/structure.object_patterns.styl"
+@require "0_vefa/structure.self.styl"
+@require "0_vefa/presentation.styl"
+@require "0_vefa/typography.styl"
+@require "0_vefa/effects.styl"
+@require "0_vefa/glyphs.styl"
+@require "_project"
+
 
 webfont(file: "../fonts/Matchbook", name: 'Matchbook', types: woff woff2)
 
-
 // ==========================================================================
 // Reset: reset all elements to baseline to be altered via CSS and class structure
-reset()
+reset(forms:false)
+
 
 // ==========================================================================
 // Utils: calls utils functions. creates utilities as OOCSS
 dev_tools()
-
 
 @require "1_layout_patterns"
 @require "2_modules"

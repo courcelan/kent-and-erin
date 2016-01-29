@@ -1,10 +1,6 @@
 res = "../images"
 
 // BREAKPOINTS
-// condensed: sub 600px screens (mainly mobile devices)
-// enhanced: between 600 and 900px screens (mainly tablets, some laptops, large DPI screns)
-// extended: above 901 for large screens / desktops and the like
-//  736 is the width of iphone6+
 max_site_width = 1170px;
 breakpoints = {
     floor: 320px
@@ -32,8 +28,8 @@ type_stacks = {
     chrome: helvetica
 }
 
-mobile_font_size = 24px
-base_font_size = 24px
+mobile_font_size = 16px
+base_font_size = 16px
 base_line_height = 24px
 
 //COLOR PALETTE
@@ -49,4 +45,32 @@ co = {
     neutrals_tint: #f2f1eb
     neutrals_shade: #90b0a4
 
+}
+
+
+// LAYOUTS
+// can use to override whats in VEFA
+base_z = above stack masthead nav overlay modal
+
+flex_mods = {
+    static: 0 0 auto
+    fit: 0 1 auto
+    balance: 1 1 auto
+    fill: 1 0 auto
+}
+
+flex_justify_content = {
+    Grid: space-between
+    Space: space-around
+    Start: flex-start
+    End: flex-end
+    Middle: center
+}
+
+
+flex_align = {
+    Start: flex-start
+    End: flex-end
+    Middle: center
+    Full: stretch
 }

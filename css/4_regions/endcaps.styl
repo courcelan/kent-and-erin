@@ -2,41 +2,35 @@
 .masthead--cnd
     order: 0
     flex: 0 0 auto
-    z(masthead)
+    z: masthead
 
 .masthead
-    +add-after()
-        background-image: url(res/hdr.jpg)
-        edges: 0
-        animation: fader 10s infinite alternate ease
-        border-bottom: 1px solid co.neutrals_tint
+    background-image: url(res/hdr.jpg)
+    background-size: cover
+    animation-name: glass-and-sun
+    animation-duration: 10s
+    animation-delay: 2s
+    animation-iteration-count: infinite
+    animation-timing-function: ease-in
+    border-bottom: 1px solid co.neutrals_tint
+    box-shadow: 0 1px 5px rgba(0,0,0,.5)
+    will-change: true
 
-@keyframes fader
-    0%
-        filter: hue-rotate(0deg)
-    25%
-        filter: hue-rotate(10deg)
-    30%
-        filter: hue-rotate(12deg) brightness(1) contrast(1)
-    50%
-        filter: hue-rotate(15deg) brightness(1.15) contrast(1.25)
-    70%
-        filter: hue-rotate(20deg) brightness(1) contrast(1.1)
-    75%
-        filter: hue-rotate(10deg)
-    100%
-        filter: hue-rotate(7deg)
 
 .masthead-home
     padding: blh(1)
     max-content-width: max_site_width, blh()
     order: 1
 
+.masthead-logo
+    mix-blend-mode: multiply
+    sq: 25vw
+    max-sq: 134px
+
 .masthead-title
-    padding-top: .5rem
-    margin-left: 1rem
+    padding-top: blh()
+    margin-x: blh()
     stack: header
-    font-size: 2.369rem
     line-height: .75
     color: co.brand_quad
 
@@ -44,67 +38,15 @@
     transform: translateY(.4rem)
 
 .masthead-navbar
-    background: rgba(co.brand_quad, 50%)
-    border-bottom: 1px solid co.neutrals_tint
-    height: bfs()
     width: 100%
-    order: 0
 
-// .masthead-home
-//     // no need to use flex-basis here, the image has its own "width"
-//     display: block
-//     relative-max: 279px, 384px, breakpoints.standard, breakpoints.expanded
-//     z-index: 3
-//
-//     +under(breakpoints.condensed)
-//         max-width: 400px
-//
-// .masthead-nav
-//     relative-width: 400px, 700px, breakpoints.standard, breakpoints.expanded
-//
-//
 
-// .masthead
+//     +under(breakpoints.compressed)
+//         order: 4
+// // .masthead-navbar
 //     +over(breakpoints.condensed)
-//         padding: blh(.5)
-//
-//     +over(breakpoints.enhanced)
-//         padding: blh(.5) blh(1) blh(1)
-//
-// .masthead--cnd
-//     padding: blh(.5)
-//     margin-top: blh(1.5)
-
-
-// .colophon
-//     position: relative
-//     flex: 0 0 auto
-//     order: 3
-//     padding: blh(.25)
-//
-//     +over(breakpoints.condensed)
-//         padding: blh(.5)
-//
-//     +over(breakpoints.enhanced)
-//         padding: blh(.5) blh(1)
-//
-//     .nav-tertiary
-//         calc-grid: 3 4
-//
-//         +over-condensed()
-//             calc-grid: 4 4
-//
-//
-// .colophon-legal
-//     min-width: 75px
-//     calc-grid: 1 4 blh(.5)
-//     text-transform: uppercase
-//
-//     +over(breakpoints.condensed)
-//         position: absolute
-//         top: bfs(-.6)
-//         right: blh(.5)
-//         width: auto
-//
-//     +over(breakpoints.enhanced)
-//         right: blh(1)
+//         background: rgba(co.brand_quad, 50%)
+//         border-bottom: 1px solid co.neutrals_tint
+//         height: bfs()
+//         width: 100%
+//         order: 0

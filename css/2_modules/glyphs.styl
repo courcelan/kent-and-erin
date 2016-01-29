@@ -1,20 +1,13 @@
 .ico
     sq: blh(.75)
 
-.ico-logo
-    sq: 5.61rem
+
+.ico-menu
+    width: 20px
+    height: 3px
+    background-color: co.brand_quad
+    burger-icon(gutter: 3px)
 
 
-// .ico-logo
-//     max-width: 100%
-//     // max-height: 45px
-//     //
-//     // +over-condensed()
-//     max-height: 96px
-//
-// .ico-secondary
-//     sq: 20px
-//
-// .ico--remove
-//     transform: rotate(45deg)
-//     sq: 16px
+    :checked ~ label &
+        burger-to-cross()

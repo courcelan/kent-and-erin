@@ -1,3 +1,21 @@
++flag(copy, "-")
+    h2
+        font-weight: 900
+        font-size: xx-large
+
+    li
+        margin-top: blh(.5)
+
+    a
+        text-decoration: underline
+        font-weight: 900
+
+        &:not([class*="co-"])
+            color: darken(co.brand_pri, 20%)
+
+            &:hover
+                color: darken(@color, 35%)
+
 // [class*="copy"]
 //     background: wh(25)
 //     relative-font-size: 14px, 16px, breakpoints.floor, breakpoints.condensed

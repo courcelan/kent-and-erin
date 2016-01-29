@@ -1,0 +1,138 @@
+flex_mods = {
+    static: 2 0 auto
+    fit: 0 1 auto
+    balance: 1 1 auto
+    fill: 1 0 auto
+}
+
+flex_justify_content = {
+    Grid: space-between
+    Space: space-around
+    Start: flex-start
+    End: flex-end
+    Middle: center
+}
+
+flex_align = {
+    Start: flex-start
+    End: flex-end
+    Middle: center
+    Full: stretch
+}
+
+// ==========================================================================
+// flex rows and columns (do not wrap by default)
+//
+//
+init-flexes()
+    [class*="row--"]
+    [class*="col--"]
+        display: flex
+        flex-wrap: nowrap
+
+    [class*="row--"]
+        > * + *
+            margin-top: 0
+
+    [class*="col--"]
+        flex-direction: column
+
+
+    [class*="--xRev"]
+        flex-direction: row-reverse
+
+    [class*="--yRev"]
+        flex-direction: column-reverse
+
+// ==========================================================================
+// flex matrices (rows that wrap to form object grids)
+//
+//
+init-matrices()
+    [class*="matrix--"]
+        display: flex
+        flex-wrap: wrap
+
+        // hide any empty matrix/grid
+        &:empty
+            visibility: collapse
+            margin: 0
+
+        // mod-balance should fill the space available in its row
+        // we reassert flex-shrink/grow/basis as it may be changed on the individual item
+        > .mod-balance
+            width: auto
+            max-width: none
+            flex: 1 1 auto
+
+        // TODO:
+        //     should the last item be "balanced" by default?
+
+
+// ==========================================================================
+// Row Justify Content flags [class*="--p____"]
+// along primary axis
+//
+init-flex-primary-flags(positions=Grid Space Start End Middle)
+    for type in positions
+        { s('[class*="--p%s"]', unquote(type)) }
+            justify-content: flex_justify_content[type]
+
+
+// ==========================================================================
+// Align Items flags [class*="--s____"]
+// along the secondary axis
+//
+init-flex-secondary-flags(positions=Start End Middle Full)
+    for type in positions
+        { s('[class*="--s%s"]', unquote(type)) }
+            align-items: flex_align[type]
+
+
+// ==========================================================================
+// Align Self flags [class*="--a____"]
+//
+//
+init-flex-alternate-flags(positions=Start End Middle Full)
+    for type in (Start End Middle Full)
+        { s('[class*="--a%s"]', unquote(type)) }
+            align-self: flex_align[type]
+
+
+
+// Percentage margin/paddings don't work due to flex=box specs,
+// so spacing/vertical needs to be supplied in pixels
+set-matrix(elements=1, spacing=0, vertical=0)
+    column_spacing = vertical ? vertical : unit(spacing, "px")
+
+    element_width = (100 / elements)
+    element_width = unit(element_width, "%")
+
+    // set up spacing between elements
+    // get total spacing between elements in a row
+    // iteration of spacing is 1 less than the number of elements in row
+    spacing_between_elements = (spacing / elements) * (elements - 1)
+
+    if spacing isnt 0
+        calculated_width = s("calc( %s - %s )", element_width, ceil(spacing_between_elements))
+    else
+        calculated_width = element_width
+
+    width: calculated_width
+    margin-top: ceil(column_spacing) unless column_spacing is 0
+    transform: translateY(ceil(column_spacing) * -1) unless column_spacing is 0
+
+    if elements > 3 and spacing > 0
+        for _num_ in (3 .. elements)
+            // get missing elements outside of the current one
+            missing_elements = elements - _num_ + 1
+            // get new offset to push right
+            new_offset = element_width * missing_elements
+            // fix the space_between issues
+            lagging_space = (spacing / elements) * missing_elements
+
+            &:nth-child({elements}n + {_num_ - 1}):nth-last-child(1)
+                // push to the right the appropriate amount
+                // this will push the other elements in the row
+                // (aside from 1st element) into position
+                margin-right: s("calc( %s + %s )", unit(new_offset, "%"), lagging_space)

@@ -299,6 +299,12 @@ shopify = ->
 module.exports = (options) ->
     vefa =
         functions:
+            static: (file) ->
+                assets_dir = options.build_config.assets.destination.split("/")
+                assets_dir.shift()
+                assets_dir = assets_dir.join("/")
+                return "/#{assets_dir}/#{file}"
+
             ie_basics: () ->
                 template =
                     """
